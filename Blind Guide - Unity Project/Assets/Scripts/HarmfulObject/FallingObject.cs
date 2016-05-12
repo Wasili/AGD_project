@@ -59,7 +59,7 @@ public class FallingObject : MonoBehaviour {
             frozen = true;
             baseObject.GetComponent<SpriteRenderer>().sprite = frozenBase;
             GetComponent<SpriteRenderer>().sprite = frozenRock;
-            gameObject.tag = "";
+            gameObject.tag = "Untagged";
         }
     }
 }
