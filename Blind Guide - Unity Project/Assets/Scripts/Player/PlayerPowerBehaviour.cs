@@ -41,7 +41,6 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         timer = 0;
         myTransform = transform;
         frameTimer = animationTime;
-        DataCollector.getInstance().AdjustMetricValue(new DataMetric());
     }
 
     void Update()

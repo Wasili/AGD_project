@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Mono.Data.Sqlite;
 using System.Data;
-using System;
 
 
 public class DataCollector {
@@ -10,8 +8,12 @@ public class DataCollector {
 
     private string _constr = "URI=file:" + Application.dataPath + "/AutomatedGameDesign/Scripts/agd_db.db";
     private IDbConnection dbConnection;
-    private IDbCommand dbCommand;
-    private IDataReader dataReader;
+    
+    DataCollector()
+    {
+        dbConnection = (IDbConnection)new SqliteConnection(_constr);
+        dbConnection.Open();
+    }
 
     public static DataCollector getInstance()
     {
@@ -19,24 +21,32 @@ public class DataCollector {
         return _instance;
     }
 
-    public void AdjustMetricValue(DataMetric metric)
+    public void saveMetric(DataMetric metric)
     {
+        Debug.Log(metric.queryForSave);
+        IDbCommand dbCommand = dbConnection.CreateCommand();
+        dbCommand.CommandText = metric.queryForSave;
+        IDataReader dataReader = dbCommand.ExecuteReader();
 
-        dbConnection = (IDbConnection)new SqliteConnection(_constr);
-        dbConnection.Open();
-        dbCommand = dbConnection.CreateCommand();
-        dbCommand.CommandText = "SELECT AttackTime, Type FROM Attack";
-        dataReader = dbCommand.ExecuteReader();
-        while(dataReader.Read())
+        dataReader.Close();
+        dbCommand.Dispose();
+    }
+
+    public DataMetric getMetricData(string name)
+    {
+        IDbCommand dbCommand = dbConnection.CreateCommand();
+        dbCommand.CommandText = "SELECT * FROM Attack WHERE name=" + name;
+        IDataReader dataReader = dbCommand.ExecuteReader();
+        while (dataReader.Read())
         {
             string attackTime = dataReader.GetString(0);
             string type = dataReader.GetString(1);
-            Debug.Log(attackTime + " is when " + type + " power was used.");
         }
+
         dataReader.Close();
         dbCommand.Dispose();
-        dbConnection.Close();
-        //apply changes to database metric
+
+        return null;
     }
 
     /*public static int GetLocalMetricValue(string _name) {

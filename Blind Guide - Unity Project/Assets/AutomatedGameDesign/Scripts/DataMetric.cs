@@ -1,28 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DataMetric : MonoBehaviour
+public abstract class DataMetric
 {
-    [@System.Serializable]
-    public struct metricValue
+    public struct MetricValue
     {
-        public string name;
-        public float value;
+        string name;
+        float value;
     };
 
-    public string metricName;
-    public string metricDetails;
-    public metricValue[] metricValues;
-    public string jsonData { get; private set; }
+    public string name { get; protected set; }
+    public string details { get; protected set; }
+    public MetricValue[] values { get; protected set; }
 
+    public string queryForSave { get; protected set; }
+    public string queryforLoad { get; protected set; }
 
-    // Use this for initialization
-    void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public abstract void saveLocalData();
+    public abstract string[] loadLocalData();
 }
