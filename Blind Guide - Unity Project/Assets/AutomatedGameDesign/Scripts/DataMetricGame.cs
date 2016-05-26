@@ -10,15 +10,18 @@ public class DataMetricGame : DataMetric
     public string endTime;
     public Level level;
     public int playerDied;
+    public string howPlayerDied;
 
     public override void saveLocalData()
     {
-        queryForSave = "INSERT INTO game(Session, StartTime, EndTime, Level, PlayerDied) VALUES("
+        queryForSave = "INSERT INTO game(Session, StartTime, EndTime, Level, PlayerDied, HowPlayerDied) VALUES("
             + "'" + session + "'" + ","
             + "'" + starttime + "'" + ","
             + "'" + endTime + "'" + ","
             + "'" + level.ToString() + "'" + ","
-            + "'" + playerDied + "'" + ")";
+            + "'" + playerDied + "'" + ","
+            + "'" + howPlayerDied + "'"
+            + ")";
         DataCollector.getInstance().saveMetric(this);
     }
 
