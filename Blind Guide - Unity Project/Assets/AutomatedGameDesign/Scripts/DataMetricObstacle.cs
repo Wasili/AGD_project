@@ -1,8 +1,11 @@
 ﻿using System;
+using UnityEngine;
 
 public class DataMetricObstacle : DataMetric
 {
-    public enum Obstacle { Monkey, FlyingEnemy, Lavaman, Panther, Snake, Snowman, FallingRock, FireFinish, Geyser, IcePool, Icicly, Lavafall, RollingBoulder, RollingBoulderSurprise }
+    public enum Obstacle { Monkey, FlyingEnemy, Lavaman,
+        Panther, Snake, Snowman, FallingRock, FireFinish, Geyser, EndBoss,
+        IcePool, Icicle, Lavafall, RollingBoulder, RollingBoulderSurprise, Coconut, LavaBall, SnowBall }
 
     public Obstacle obstacle;
     public string spawnTime;
@@ -18,6 +21,8 @@ public class DataMetricObstacle : DataMetric
             + "'" + defeatedTime + "'" + "," 
             + "'" + howItDied + "'" + ","
             + "'" + gameID + "'" + ")";
+
+        Debug.Log(queryForSave);
 
         DataCollector.getInstance().saveMetric(this);
     }
