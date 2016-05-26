@@ -4,6 +4,7 @@ using System.Collections;
 public class SetDizzyDeath : MonoBehaviour {
 
     GameObject blindMan;
+    public DataMetricObstacle.Obstacle obstacleType;
 
     void Awake()
     {

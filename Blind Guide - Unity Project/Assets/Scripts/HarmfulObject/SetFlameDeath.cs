@@ -4,6 +4,7 @@ using System.Collections;
 public class SetFlameDeath : MonoBehaviour {
 
     GameObject blindMan;
+    public DataMetricObstacle.Obstacle obstacleType;
 
     void Awake()
     {

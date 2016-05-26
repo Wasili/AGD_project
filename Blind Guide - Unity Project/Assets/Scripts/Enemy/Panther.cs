@@ -14,6 +14,8 @@ public class Panther : MonoBehaviour
     private bool dead = false;
     public bool isEndBoss = false;
 
+    DataMetricObstacle dataMetric = new DataMetricObstacle();
+
     void Start()
     {
         frameTimer = animationTime;
@@ -21,8 +23,13 @@ public class Panther : MonoBehaviour
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         triggeredAnimation = sneaking;
 
+        dataMetric.obstacle = DataMetricObstacle.Obstacle.Panther;
+
         if (isEndBoss)
+        {
             GetComponent<Collider2D>().enabled = false;
+            dataMetric.obstacle = DataMetricObstacle.Obstacle.EndBoss;
+        }
     }
 
     void Update()
@@ -105,6 +112,10 @@ public class Panther : MonoBehaviour
         {
             if (target.gameObject.tag == "FireAttack")
             {
+                dataMetric.howItDied = "Fire";
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+                dataMetric.saveLocalData();
+
                 dead = true;
                 if (!isEndBoss)
                     spriteRenderer.sprite = burnt;
@@ -113,6 +124,10 @@ public class Panther : MonoBehaviour
             }
             else if (target.gameObject.tag == "IceAttack")
             {
+                dataMetric.howItDied = "Ice";
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+                dataMetric.saveLocalData();
+
                 dead = true;
                 if (!isEndBoss)
                     spriteRenderer.sprite = frozen;
@@ -135,6 +150,12 @@ public class Panther : MonoBehaviour
             frameTimer = animationTime;
         }
         this.gameObject.GetComponent<SpriteRenderer>().sprite = triggeredAnimation[curSprite];
+    }
+
+
+    void OnBecameVisible()
+    {
+        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
     }
 }
 

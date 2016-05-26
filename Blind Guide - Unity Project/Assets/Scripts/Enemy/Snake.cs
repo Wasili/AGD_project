@@ -10,11 +10,13 @@ public class Snake : MonoBehaviour
     private bool dead = false, firstWarning = true;
     public AudioClip hiss;
     Transform blindGuyTransform;
+    DataMetricObstacle dataMetric = new DataMetricObstacle();
 
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = initial;
+        dataMetric.obstacle = DataMetricObstacle.Obstacle.Snake;
     }
 
     void Awake()
@@ -49,12 +51,18 @@ public class Snake : MonoBehaviour
             
             if (target.gameObject.tag == "IceAttack")
             {
+                dataMetric.howItDied = "Ice";
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+                dataMetric.saveLocalData();
                 dead = true;
                 spriteRenderer.sprite = frozen;
                 GetComponent<Collider2D>().enabled = false;
             }
             else if (target.gameObject.tag == "FireAttack")
             {
+                dataMetric.howItDied = "Fire";
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+                dataMetric.saveLocalData();
                 dead = true;
                 spriteRenderer.sprite = burnt;
                 GetComponent<Collider2D>().enabled = false;
@@ -85,5 +93,10 @@ public class Snake : MonoBehaviour
                 }
             }
         }
+    }
+    
+    void OnBecameVisible()
+    {
+        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
     }
 }
