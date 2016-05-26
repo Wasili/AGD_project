@@ -5,11 +5,14 @@ public class Lavabal : MonoBehaviour {
     public float speed, maxHeight = 2, downwardSpeed = 6f, upwardSpeed = 5f, minYVelocity = -2f;
     bool going;
     Transform blindTransform;
+    DataMetricObstacle dataMetric = new DataMetricObstacle();
 
     void Start()
     {
 		GetComponent<Rigidbody2D>().velocity = (blindTransform.position - transform.position).normalized * speed;
 		GetComponent<Rigidbody2D>().velocity += new Vector2(0, upwardSpeed);
+        dataMetric.obstacle = DataMetricObstacle.Obstacle.LavaBall;
+        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
     }
 
     void Awake()
@@ -29,6 +32,9 @@ Time.deltaTime);
     {
         if (ice.gameObject.tag == "IceAttack")
         {
+            dataMetric.howItDied = "Ice";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
             Destroy(gameObject);
         }
     }
@@ -37,12 +43,18 @@ Time.deltaTime);
     {
         if (col.gameObject.tag == "Ground")
         {
+            dataMetric.howItDied = "Telekinesis";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
             Destroy(gameObject);
         }
     }
 
     void OnBecameInvisible()
     {
+        dataMetric.howItDied = "Telekinesis";
+        dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.saveLocalData();
         Destroy(gameObject);
     }
 }

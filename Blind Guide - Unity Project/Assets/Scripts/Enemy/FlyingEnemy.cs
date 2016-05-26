@@ -15,12 +15,14 @@ public class FlyingEnemy : MonoBehaviour {
     public AudioClip flyAttack;
     int curSprite;
     SpriteRenderer spriteRenderer;
+    DataMetricObstacle dataMetric = new DataMetricObstacle();
 
-	void Start () 
+    void Start () 
     {
         curState = State.idle;
         spriteRenderer = GetComponent<SpriteRenderer>();
-	}
+        dataMetric.obstacle = DataMetricObstacle.Obstacle.FlyingEnemy;
+    }
 
     void Awake()
     {
@@ -96,6 +98,9 @@ public class FlyingEnemy : MonoBehaviour {
         if (col.gameObject.tag == "FireAttack")
         {
             curState = State.dead;
+            dataMetric.howItDied = "Fire";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
         }
     }
 
@@ -103,5 +108,10 @@ public class FlyingEnemy : MonoBehaviour {
     {
         Gizmos.color = new Color(0, 200, 200, 0.3f);
         Gizmos.DrawSphere(transform.position, reactionDistance);
+    }
+
+    void OnBecameVisible()
+    {
+        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
     }
 }

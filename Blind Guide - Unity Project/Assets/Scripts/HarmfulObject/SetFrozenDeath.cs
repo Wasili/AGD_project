@@ -4,6 +4,7 @@ using System.Collections;
 public class SetFrozenDeath : MonoBehaviour {
 
     GameObject blindMan;
+    public DataMetricObstacle.Obstacle obstacleType;
 
     void Awake()
     {
