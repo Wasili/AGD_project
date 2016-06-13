@@ -15,6 +15,7 @@ public class Icicle : MonoBehaviour {
     public bool isSpecial = false;
     public AudioClip icicleImpact;
     DataMetricObstacle dataMetric = new DataMetricObstacle();
+    bool dataSend = false;
 
     void Start()
     {
@@ -54,7 +55,7 @@ public class Icicle : MonoBehaviour {
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
         }
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -103,6 +104,13 @@ public class Icicle : MonoBehaviour {
         if (!collided)
         {
             playSound(icicleImpact);
+
+            /*
+            dataMetric.howItDied = "Telekinesis";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
+            */
+
             myShatters = ((GameObject) Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Collider2D>().enabled = false;

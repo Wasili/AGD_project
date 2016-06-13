@@ -7,6 +7,7 @@ public class DataMetricObstacle : DataMetric
         Panther, Snake, Snowman, FallingRock, FireFinish, Geyser, EndBoss,
         IcePool, Icicle, Lavafall, RollingBoulder, RollingBoulderSurprise, Coconut, LavaBall, SnowBall }
 
+    DataMetricObstacle dataMetric = new DataMetricObstacle();
     public Obstacle obstacle;
     public string spawnTime;
     public string defeatedTime;
@@ -22,7 +23,7 @@ public class DataMetricObstacle : DataMetric
             + "'" + howItDied + "'" + ","
             + "'" + gameID + "'" + ")";
 
-        Debug.Log(queryForSave);
+        //Debug.Log(queryForSave);
 
         DataCollector.getInstance().saveMetric(this);
     }

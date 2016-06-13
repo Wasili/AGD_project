@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerPowerBehaviour : MonoBehaviour {
 
+    DataMetricAttack dataMetric = new DataMetricAttack();
     public GameObject fireBall;
     public GameObject iceBall;
     GameObject[] pullableObjects;
@@ -109,7 +110,10 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && canShoot == true)
         {
             Instantiate(fireBall, superPowerSpawner.position, myTransform.rotation);
-            timer = superPowerCooldown;        
+            timer = superPowerCooldown;
+            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
+            dataMetric.type = DataMetricAttack.Type.Fire;
+            dataMetric.saveLocalData();
         }
     }
 
@@ -118,13 +122,19 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && canShoot == true)
         {
             Instantiate(iceBall, superPowerSpawner.position, myTransform.rotation);
-            timer = superPowerCooldown;        
+            timer = superPowerCooldown;
+            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
+            dataMetric.type = DataMetricAttack.Type.Ice;
+            dataMetric.saveLocalData();
         }
     }
 
     void GravitationalPull()
     {
         pullableObjects = GameObject.FindGameObjectsWithTag("PullableObject");
+        dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
+        dataMetric.type = DataMetricAttack.Type.Telekinesis;
+        dataMetric.saveLocalData();
 
         if (Input.GetButtonDown(usePowerButtonName) && !pulling)
         {
