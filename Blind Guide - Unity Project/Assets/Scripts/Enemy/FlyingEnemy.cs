@@ -95,7 +95,7 @@ public class FlyingEnemy : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "FireAttack")
+        if (col.gameObject.tag == "FireAttack" || col.gameObject.tag == "IceAttack")
         {
             curState = State.dead;
             dataMetric.howItDied = "Fire";

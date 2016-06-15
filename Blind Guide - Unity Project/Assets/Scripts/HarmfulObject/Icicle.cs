@@ -16,6 +16,7 @@ public class Icicle : MonoBehaviour {
     public AudioClip icicleImpact;
     DataMetricObstacle dataMetric = new DataMetricObstacle();
     bool dataSend = false;
+    bool vallen = false;
 
     void Start()
     {
@@ -54,6 +55,7 @@ public class Icicle : MonoBehaviour {
         if (Vector2.Distance(radiusChecker.transform.position, BlindMan.transform.position) <= fellDistance)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
+            vallen = true;
         }
     }
 
@@ -91,6 +93,8 @@ public class Icicle : MonoBehaviour {
             }
             GetComponent<SpriteRenderer>().color = Color.white;
         }
+
+        if (col.gameObject.tag == "")
     }
 
     void OnDrawGizmosSelected()
