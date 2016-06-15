@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerPowerBehaviour : MonoBehaviour {
 
+    DataMetricAttack dataMetric = new DataMetricAttack();
     public GameObject fireBall;
     public GameObject iceBall;
     GameObject[] pullableObjects;
@@ -64,16 +65,19 @@ public class PlayerPowerBehaviour : MonoBehaviour {
             case 0:
                 triggeredAnimation = graviBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Telekinesis;
                 break;
             case 1:
                 SpawnSuperPower(fireBall);
                 triggeredAnimation = fireBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Fire;
                 break;
             case 2:
                 SpawnSuperPower(iceBall);
                 triggeredAnimation = iceBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Ice;
                 break;
         }
 
@@ -109,7 +113,7 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && canShoot == true)
         {
             Instantiate(fireBall, superPowerSpawner.position, myTransform.rotation);
-            timer = superPowerCooldown;        
+            timer = superPowerCooldown;
         }
     }
 
@@ -118,7 +122,7 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && canShoot == true)
         {
             Instantiate(iceBall, superPowerSpawner.position, myTransform.rotation);
-            timer = superPowerCooldown;        
+            timer = superPowerCooldown;
         }
     }
 
@@ -129,6 +133,8 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && !pulling)
         {
             pulling = true;
+            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
             return;
         }
 

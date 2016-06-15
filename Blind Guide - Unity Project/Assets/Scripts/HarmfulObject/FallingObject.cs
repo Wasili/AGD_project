@@ -11,6 +11,7 @@ public class FallingObject : MonoBehaviour {
     float timer;
     bool frozen = false;
     DataMetricObstacle dataMetric = new DataMetricObstacle();
+    bool dataSend = false;
 
     void Start () 
     {
@@ -53,18 +54,23 @@ public class FallingObject : MonoBehaviour {
             transform.Rotate(new Vector3(0, 0, rotation * Time.deltaTime));
         }
 
-        if (blindGuy.transform.position.x > transform.position.x)
+        /*if (blindGuy.transform.position.x > transform.position.x)
         {
             dataMetric.howItDied = "Telekinesis";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
-        }
+            if(!dataSend)
+            {
+                dataMetric.saveLocalData();
+                dataSend = true;
+            }
+        }*/
 	}
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "IceAttack" && GetComponent<Rigidbody2D>().gravityScale <= 0)
+        if (col.gameObject.tag == "IceAttack" && GetComponent<Rigidbody2D>().gravityScale <= 0 && !dataSend)
         {
+            dataSend = true;
             dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
             dataMetric.saveLocalData();
