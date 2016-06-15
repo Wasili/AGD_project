@@ -29,7 +29,7 @@ public class BlindGuyAI : MonoBehaviour {
 	void Start ()
     {
         // dataMetric.level = GameObject.FindWithTag("level");
-        dataMetric.level = Application.loadedLevel;
+        dataMetric.level = (DataMetricGame.Level) Application.loadedLevel;
         frameTimer = animationTime;
         regularSpeed = speed;
         dataMetric.starttime = Time.timeSinceLevelLoad.ToString();
