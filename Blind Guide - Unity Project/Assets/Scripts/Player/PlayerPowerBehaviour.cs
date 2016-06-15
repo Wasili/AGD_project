@@ -65,16 +65,19 @@ public class PlayerPowerBehaviour : MonoBehaviour {
             case 0:
                 triggeredAnimation = graviBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Telekinesis;
                 break;
             case 1:
                 SpawnSuperPower(fireBall);
                 triggeredAnimation = fireBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Fire;
                 break;
             case 2:
                 SpawnSuperPower(iceBall);
                 triggeredAnimation = iceBarky;
                 AnimateBarky();
+                dataMetric.type = DataMetricAttack.Type.Ice;
                 break;
         }
 
@@ -111,9 +114,6 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         {
             Instantiate(fireBall, superPowerSpawner.position, myTransform.rotation);
             timer = superPowerCooldown;
-            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
-            dataMetric.type = DataMetricAttack.Type.Fire;
-            dataMetric.saveLocalData();
         }
     }
 
@@ -123,22 +123,18 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         {
             Instantiate(iceBall, superPowerSpawner.position, myTransform.rotation);
             timer = superPowerCooldown;
-            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
-            dataMetric.type = DataMetricAttack.Type.Ice;
-            dataMetric.saveLocalData();
         }
     }
 
     void GravitationalPull()
     {
         pullableObjects = GameObject.FindGameObjectsWithTag("PullableObject");
-        dataMetric.attackTime = Time.timeSinceLevelLoad.ToString(); ;
-        dataMetric.type = DataMetricAttack.Type.Telekinesis;
-        dataMetric.saveLocalData();
 
         if (Input.GetButtonDown(usePowerButtonName) && !pulling)
         {
             pulling = true;
+            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
             return;
         }
 
