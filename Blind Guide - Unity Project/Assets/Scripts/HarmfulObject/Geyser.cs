@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Geyser : MonoBehaviour {
 
-    public bool frozenState = false, spraying = false;
+    public bool frozenState = false, spraying = false, collided = false;
     public GameObject waterJet;
     public Transform spawnPos;
     public SpriteRenderer spriteRenderer;

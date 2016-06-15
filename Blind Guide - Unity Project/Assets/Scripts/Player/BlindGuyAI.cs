@@ -9,6 +9,9 @@ public class BlindGuyAI : MonoBehaviour {
 
     Vector3 positionOffset, blindGuySize;
 
+    DataMetricGame dataMetric = new DataMetricGame();
+    GameObject level;
+
     public Sprite[] burned;
     public Sprite[] dizzy;
     public Sprite[] frozen;
@@ -25,8 +28,12 @@ public class BlindGuyAI : MonoBehaviour {
 
 	void Start ()
     {
+        // dataMetric.level = GameObject.FindWithTag("level");
+        dataMetric.level = (DataMetricGame.Level) Application.loadedLevel;
         frameTimer = animationTime;
         regularSpeed = speed;
+        dataMetric.starttime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.session = 0;
     }
 	
 	void Update () 
@@ -57,6 +64,10 @@ public class BlindGuyAI : MonoBehaviour {
     {
         if (col.tag == "Finish")
         {
+            dataMetric.howPlayerDied = "";
+            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.playerDied = 0;
+            dataMetric.saveLocalData();
             if (Application.loadedLevelName == "Level10")
             {
                 Application.LoadLevel("PostGameScene");
@@ -82,6 +93,10 @@ public class BlindGuyAI : MonoBehaviour {
    
     public void SetDizzyDeath() 
     {
+        dataMetric.howPlayerDied = "Dizzy";
+        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.playerDied = 1;
+        dataMetric.saveLocalData();
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;
@@ -92,6 +107,10 @@ public class BlindGuyAI : MonoBehaviour {
 
     public void SetFlameDeath()
     {
+        dataMetric.howPlayerDied = "Flames";
+        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.playerDied = 1;
+        dataMetric.saveLocalData();
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;
@@ -102,6 +121,10 @@ public class BlindGuyAI : MonoBehaviour {
 
     public void SetFrozenDeath()
     {
+        dataMetric.howPlayerDied = "Frozen";
+        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.playerDied = 1;
+        dataMetric.saveLocalData();
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;

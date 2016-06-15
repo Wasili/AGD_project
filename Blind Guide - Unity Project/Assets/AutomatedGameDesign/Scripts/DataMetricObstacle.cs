@@ -22,7 +22,7 @@ public class DataMetricObstacle : DataMetric
             + "'" + howItDied + "'" + ","
             + "'" + gameID + "'" + ")";
 
-        Debug.Log(queryForSave);
+        //Debug.Log(queryForSave);
 
         DataCollector.getInstance().saveMetric(this);
     }
