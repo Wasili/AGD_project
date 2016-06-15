@@ -64,6 +64,10 @@ public class BlindGuyAI : MonoBehaviour {
     {
         if (col.tag == "Finish")
         {
+            dataMetric.howPlayerDied = "";
+            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.playerDied = 0;
+            dataMetric.saveLocalData();
             if (Application.loadedLevelName == "Level10")
             {
                 Application.LoadLevel("PostGameScene");
