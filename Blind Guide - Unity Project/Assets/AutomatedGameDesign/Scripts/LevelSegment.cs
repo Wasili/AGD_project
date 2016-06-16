@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LevelSegment : MonoBehaviour {
-	public enum Difficulty { easy, medium, hard }
-	public Difficulty difficulty;
+public class LevelSegment {
+	public enum Difficulty { easy, medium, hard, boss }
+	public Difficulty difficulty { get; private set; }
+
+	public LevelSegment(Difficulty difficulty) {
+		this.difficulty = difficulty;
+	}
 }
