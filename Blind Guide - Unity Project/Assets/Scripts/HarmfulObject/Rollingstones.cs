@@ -60,9 +60,8 @@ public class Rollingstones : MonoBehaviour
             gameObject.tag = "Untagged";
             if (myTransform.localScale.x <= 0 || spriteRenderer.color.a <= 0)
             {
-                dataMetric.defeatedTime = Time.time.ToString();
+                dataMetric.defeatedTime = Time.time;
                 dataMetric.howItDied = "ThrowLimit";
-                dataMetric.saveLocalData();
                 Destroy(gameObject);
             }
         }
@@ -87,16 +86,15 @@ public class Rollingstones : MonoBehaviour
         //metric data set to thrown behind blind guy
         if (transform.position.x < blindGuyTransform.position.x)
         {
-            dataMetric.defeatedTime = Time.time.ToString();
+            dataMetric.defeatedTime = Time.time;
             dataMetric.howItDied = "BehindBlindGuy";
-            dataMetric.saveLocalData();
             Destroy(gameObject);
         }
     }
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.time.ToString();
+        dataMetric.spawnTime = Time.time;
         if (!soundPlayed) 
         {
             GetComponent<AudioSource>().Play();

@@ -113,8 +113,7 @@ public class Snowman : MonoBehaviour
             if (fire.gameObject.tag == "FireAttack")
             {
                 dataMetric.howItDied = "Fire";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
                 dead = true;
             }
         }
@@ -136,8 +135,7 @@ public class Snowman : MonoBehaviour
     void OnBecameInvisible()
     {
         dataMetric.howItDied = "Ignored";
-        dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.saveLocalData();
+        dataMetric.defeatedTime = Time.timeSinceLevelLoad;
         Destroy(gameObject);
     }
     
@@ -149,7 +147,7 @@ public class Snowman : MonoBehaviour
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
 

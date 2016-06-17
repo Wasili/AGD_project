@@ -79,6 +79,8 @@ public class PlayerPowerBehaviour : MonoBehaviour {
                 AnimateBarky();
                 dataMetric.type = DataMetricAttack.Type.Ice;
                 break;
+                
+                //DataCollector db = DataCollector.getInstance();
         }
 
         CooldownFireIce();

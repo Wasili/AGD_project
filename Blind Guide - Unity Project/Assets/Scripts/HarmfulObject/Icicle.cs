@@ -62,8 +62,7 @@ public class Icicle : MonoBehaviour {
         if (col.gameObject.tag == "FireAttack" && canBeMelted)
         {
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             //if (isSpecial)
             //{
             myShatters = ((GameObject)Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
@@ -77,8 +76,7 @@ public class Icicle : MonoBehaviour {
         if (col.gameObject.tag == "IceAttack" && canBeFrozen && !frozen)
         {
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             if (isSpecial)
             {
                 canBeMelted = true;
@@ -126,6 +124,6 @@ public class Icicle : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

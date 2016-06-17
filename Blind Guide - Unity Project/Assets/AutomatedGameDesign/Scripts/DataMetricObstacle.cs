@@ -8,28 +8,26 @@ public class DataMetricObstacle : DataMetric
         IcePool, Icicle, Lavafall, RollingBoulder, RollingBoulderSurprise, Coconut, LavaBall, SnowBall }
 
     public Obstacle obstacle;
-    public string spawnTime;
-    public string defeatedTime;
+    public float spawnTime;
+    public float defeatedTime;
     public string howItDied;
-    public int gameID;
+    public int levelID;
 
-    public override void saveLocalData()
-    {
-        queryForSave = "INSERT INTO Obstacles(Obstacle, SpawnTime, DefeatedTime, HowItDied, GameID) VALUES(" 
-            + "'" + obstacle.ToString() + "'" + "," 
-            + "'" + spawnTime + "'" + "," 
-            + "'" + defeatedTime + "'" + "," 
-            + "'" + howItDied + "'" + ","
-            + "'" + gameID + "'" + ")";
+    //public override void saveLocalData()
+    //{
+    //    queryForSave = "INSERT INTO Obstacles(Obstacle, SpawnTime, DefeatedTime, HowItDied, GameID) VALUES(" 
+    //        + "'" + obstacle.ToString() + "'" + "," 
+    //        + "'" + spawnTime + "'" + "," 
+    //        + "'" + defeatedTime + "'" + "," 
+    //        + "'" + howItDied + "'" + ","
+    //        + "'" + gameID + "'" + ")";
 
-        //Debug.Log(queryForSave);
+    //    DataCollector.getInstance().saveMetric(this);
+    //}
 
-        DataCollector.getInstance().saveMetric(this);
-    }
-
-    public override string[] loadLocalData()
-    {
-        queryforLoad = "";
-        return null;
-    }
+    //public override string[] loadLocalData()
+    //{
+    //    queryforLoad = "";
+    //    return null;
+    //}
 }

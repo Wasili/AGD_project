@@ -118,8 +118,9 @@ public class Lavaman : MonoBehaviour {
             if (ice.gameObject.tag == "IceAttack")
             {
                 dataMetric.howItDied = "Ice";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                DataCollector datacoll = DataCollector.getInstance();
+                datacoll.createObstacle(dataMetric);
                 dead = true;
             }
         }
@@ -132,7 +133,7 @@ public class Lavaman : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
 

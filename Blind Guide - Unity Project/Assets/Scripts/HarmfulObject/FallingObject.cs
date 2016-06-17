@@ -57,13 +57,8 @@ public class FallingObject : MonoBehaviour {
         /*if (blindGuy.transform.position.x > transform.position.x)
         {
             dataMetric.howItDied = "Telekinesis";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            if(!dataSend)
-            {
-                dataMetric.saveLocalData();
-                dataSend = true;
-            }
-        }*/
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+        }
 	}
 
     void OnTriggerEnter2D(Collider2D col)
@@ -72,8 +67,7 @@ public class FallingObject : MonoBehaviour {
         {
             dataSend = true;
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             frozen = true;
             baseObject.GetComponent<SpriteRenderer>().sprite = frozenBase;
             GetComponent<SpriteRenderer>().sprite = frozenRock;
@@ -83,6 +77,6 @@ public class FallingObject : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

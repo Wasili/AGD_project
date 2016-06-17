@@ -84,8 +84,9 @@ public class MonkeyBusiness : MonoBehaviour {
         if (col.gameObject.tag == "FireAttack" && !dead)
         {
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Die();
         }
     }
@@ -103,6 +104,6 @@ public class MonkeyBusiness : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
