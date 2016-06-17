@@ -21,6 +21,7 @@ public class BlindGuyAI : MonoBehaviour {
     public float animationTime = 1;
     float frameTimer;
     public AudioClip freezeDeath, flameDeath, dazedDeath;
+    bool die = false;
 
     Sprite[] triggeredAnimation;
 
@@ -93,44 +94,56 @@ public class BlindGuyAI : MonoBehaviour {
    
     public void SetDizzyDeath() 
     {
-        dataMetric.howPlayerDied = "Dizzy";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
-        Invoke("LoadLevel", 3f);
-        regularSpeed = 0;
-        speed = 0;
-        triggeredAnimation = dizzy;
-        dying = true;
-        AudioSource.PlayClipAtPoint(dazedDeath, transform.position);
+        if(!die)
+        {
+            dataMetric.howPlayerDied = "Dizzy";
+            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.playerDied = 1;
+            dataMetric.saveLocalData();
+            Invoke("LoadLevel", 3f);
+            regularSpeed = 0;
+            speed = 0;
+            triggeredAnimation = dizzy;
+            dying = true;
+            AudioSource.PlayClipAtPoint(dazedDeath, transform.position);
+            die = true;
+        }
     }
 
     public void SetFlameDeath()
     {
-        dataMetric.howPlayerDied = "Flames";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
-        Invoke("LoadLevel", 3f);
-        regularSpeed = 0;
-        speed = 0;
-        triggeredAnimation = burned;
-        dying = true;
-        AudioSource.PlayClipAtPoint(flameDeath, transform.position);
+        if (!die)
+        {
+            dataMetric.howPlayerDied = "Flames";
+            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.playerDied = 1;
+            dataMetric.saveLocalData();
+            Invoke("LoadLevel", 3f);
+            regularSpeed = 0;
+            speed = 0;
+            triggeredAnimation = burned;
+            dying = true;
+            AudioSource.PlayClipAtPoint(flameDeath, transform.position);
+            die = true;
+        }
     }
 
     public void SetFrozenDeath()
     {
-        dataMetric.howPlayerDied = "Frozen";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
-        Invoke("LoadLevel", 3f);
-        regularSpeed = 0;
-        speed = 0;
-        triggeredAnimation = frozen;
-        dying = true;
-        AudioSource.PlayClipAtPoint(freezeDeath, transform.position);
+        if(!die)
+        {
+            dataMetric.howPlayerDied = "Frozen";
+            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.playerDied = 1;
+            dataMetric.saveLocalData();
+            Invoke("LoadLevel", 3f);
+            regularSpeed = 0;
+            speed = 0;
+            triggeredAnimation = frozen;
+            dying = true;
+            AudioSource.PlayClipAtPoint(freezeDeath, transform.position);
+            die = true;
+        }
     }
 
     void AnimateBlindGuy()
