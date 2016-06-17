@@ -13,16 +13,15 @@ public class FallingObject : MonoBehaviour {
     DataMetricObstacle dataMetric = new DataMetricObstacle();
     bool dataSend = false;
 
-
-    void Start()
+    void Start () 
     {
         blindGuy = GameObject.FindWithTag("Blindguy");
         rotation = -rotationSpeed;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         dataMetric.obstacle = DataMetricObstacle.Obstacle.FallingRock;
     }
-
-    void Update()
+	
+	void Update () 
     {
         if (frozen)
             return;
@@ -54,14 +53,22 @@ public class FallingObject : MonoBehaviour {
         {
             transform.Rotate(new Vector3(0, 0, rotation * Time.deltaTime));
         }
-    }
-}
 
         /*if (blindGuy.transform.position.x > transform.position.x)
         {
             dataMetric.howItDied = "Telekinesis";
+<<<<<<< 029ee322bc4fcf5be319341036db4b75f9c4f51f
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            if(!dataSend)
+            {
+                dataMetric.saveLocalData();
+                dataSend = true;
+            }
+        }*/
+=======
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
         }
+>>>>>>> forgot to commit some files
 	}
 
     void OnTriggerEnter2D(Collider2D col)
@@ -83,4 +90,3 @@ public class FallingObject : MonoBehaviour {
         dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
-*/

@@ -37,6 +37,7 @@ public class DataCollector {
             _currGame = new DataMetricGame();
             _currGame.starttime = System.DateTime.Now;
             _currGame.session = gameSession;
+            Debug.Log("Created game...");
         }
     }
 
@@ -46,7 +47,7 @@ public class DataCollector {
         {
             Debug.Log("Creating level...");
             _currLevel = new DataMetricLevel();
-            _currLevel.startTime = Time.time;
+            _currLevel.startTime = DateTime.Now;
         }
     }
 
@@ -68,18 +69,24 @@ public class DataCollector {
 
     public void createObstacle(DataMetricObstacle obstacle)
     {
-        _currLevel.addObstacle(obstacle); 
+        if (_currLevel != null)
+        {
+            _currLevel.addObstacle(obstacle);
+        }
     }
 
     public void createAttack(DataMetricAttack attack)
     {
-        _currLevel.addAttack(attack); 
+        if (_currLevel != null)
+        {
+            _currLevel.addAttack(attack);
+        }
     }
 
-    public void finishedGame(Time finished, bool playerDied)
-    {
-        _currGame.endTime = finished;
-    }
+    //public void finishedGame(Time finished, bool playerDied)
+    //{
+    //    _currGame.endTime = finished;
+    //}
 
     //public void saveMetric(DataMetric metric)
     //{

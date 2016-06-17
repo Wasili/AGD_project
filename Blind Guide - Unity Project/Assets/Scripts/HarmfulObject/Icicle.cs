@@ -89,6 +89,9 @@ public class Icicle : MonoBehaviour {
             }
             GetComponent<SpriteRenderer>().color = Color.white;
         }
+
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.createObstacle(dataMetric); 
     }
 
     void OnDrawGizmosSelected()

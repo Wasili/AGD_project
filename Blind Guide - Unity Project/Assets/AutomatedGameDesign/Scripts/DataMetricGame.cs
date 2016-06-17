@@ -7,12 +7,12 @@ public class DataMetricGame : DataMetric
 {
     public int session;
     public DateTime starttime;
-    public Time endTime;
+    public float endTime;
     private List<DataMetricLevel> levels = new List<DataMetricLevel>();
 
     public DataMetricGame()
     {
-        Debug.Log("Created game...");
+        //Debug.Log("Created game...");
     }
 
     public void addLevel(DataMetricLevel level)

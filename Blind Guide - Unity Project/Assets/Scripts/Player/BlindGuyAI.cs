@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BlindGuyAI : MonoBehaviour {
     public float stopTimer = 0;
@@ -29,11 +30,10 @@ public class BlindGuyAI : MonoBehaviour {
 	void Start ()
     {
         // dataMetric.level = GameObject.FindWithTag("level");
-        dataMetric.level = (DataMetricGame.Level) Application.loadedLevel;
+        DataCollector inst = DataCollector.getInstance();
+        inst.startLevel((DataMetricLevel.Level) Application.loadedLevel);
         frameTimer = animationTime;
         regularSpeed = speed;
-        dataMetric.starttime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.session = 0;
     }
 	
 	void Update () 
@@ -64,18 +64,18 @@ public class BlindGuyAI : MonoBehaviour {
     {
         if (col.tag == "Finish")
         {
-            dataMetric.howPlayerDied = "";
-            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.playerDied = 0;
-            dataMetric.saveLocalData();
-            if (Application.loadedLevelName == "Level10")
+            DataCollector inst = DataCollector.getInstance();
+            inst.endLevel(false);
+
+            Debug.Log(SceneManager.GetActiveScene().name);
+            if (SceneManager.GetActiveScene().name == "Level10")
             {
-                Application.LoadLevel("PostGameScene");
+                SceneManager.LoadScene("PostGameScene");
                 return;
             }
             MenuBehaviour menuScript = GameObject.FindWithTag("UIBehaviour").GetComponent<MenuBehaviour>();
             menuScript.SaveProgress();
-            Application.LoadLevel("WinState");
+            SceneManager.LoadScene("WinState");
         }
 
         if (col.tag == "FallingTrigger")
@@ -87,16 +87,14 @@ public class BlindGuyAI : MonoBehaviour {
 
     void LoadLevel()
     {
-        Application.LoadLevel("LossState");
+        SceneManager.LoadScene("LossState");
     }
 
    
     public void SetDizzyDeath() 
     {
-        dataMetric.howPlayerDied = "Dizzy";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Dizzy");
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;
@@ -107,10 +105,8 @@ public class BlindGuyAI : MonoBehaviour {
 
     public void SetFlameDeath()
     {
-        dataMetric.howPlayerDied = "Flames";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Flames");
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;
@@ -121,10 +117,8 @@ public class BlindGuyAI : MonoBehaviour {
 
     public void SetFrozenDeath()
     {
-        dataMetric.howPlayerDied = "Frozen";
-        dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.playerDied = 1;
-        dataMetric.saveLocalData();
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Frozen");
         Invoke("LoadLevel", 3f);
         regularSpeed = 0;
         speed = 0;

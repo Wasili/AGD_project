@@ -277,6 +277,14 @@ Prefab:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
   m_IsPrefabParent: 0
@@ -407,6 +415,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: a105178b23cf5dd40865a766c49b10d7, type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: a105178b23cf5dd40865a766c49b10d7, type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a105178b23cf5dd40865a766c49b10d7, type: 2}
   m_IsPrefabParent: 0
@@ -514,6 +530,14 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
       propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 56c78b31616cf2d4484d181e9fccf4c7, type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2181,6 +2205,14 @@ Prefab:
     - target: {fileID: 5000000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}
       propertyPath: m_FixedAngle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}
+      propertyPath: panLevelCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}
+      propertyPath: reverbZoneMixCustomCurve.m_RotationOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}

@@ -35,5 +35,7 @@ public class IcePool : MonoBehaviour {
             gameObject.tag = "Untagged";
             frozen = false;
         }
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.createObstacle(dataMetric);
     }
 }

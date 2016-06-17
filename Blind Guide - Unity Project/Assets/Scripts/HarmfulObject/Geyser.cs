@@ -28,6 +28,8 @@ public class Geyser : MonoBehaviour {
         {
             dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             frozenState = true;
             spriteRenderer.sprite = frozenSprite;
             colBox.enabled = false;
@@ -41,6 +43,8 @@ public class Geyser : MonoBehaviour {
                 {
                     dataMetric.howItDied = "Destruction";
                     dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                    DataCollector datacoll = DataCollector.getInstance();
+                    datacoll.createObstacle(dataMetric);
                     frozenState = true;
                     spriteRenderer.sprite = brokenSprite;
                     colBox.enabled = false;
@@ -52,6 +56,8 @@ public class Geyser : MonoBehaviour {
             {
                 dataMetric.howItDied = "Destruction";
                 dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                DataCollector datacoll = DataCollector.getInstance();
+                datacoll.createObstacle(dataMetric);
                 frozenState = true;
                 spriteRenderer.sprite = brokenSprite;
                 colBox.enabled = false;

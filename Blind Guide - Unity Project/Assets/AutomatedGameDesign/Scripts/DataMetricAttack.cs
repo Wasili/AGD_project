@@ -5,9 +5,8 @@ public class DataMetricAttack : DataMetric
 {
     public enum Type { Fire, Ice, Telekinesis, Destruction }
 
-    public Time attackTime;
+    public float attackTime;
     public Type type;
-    public int levelID;
 
     //public override void saveLocalData()
     //{

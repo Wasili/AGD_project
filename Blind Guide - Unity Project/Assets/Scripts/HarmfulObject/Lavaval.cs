@@ -30,6 +30,8 @@ public class Lavaval : MonoBehaviour
             colBox.enabled = false;
             dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
         }
     }
 

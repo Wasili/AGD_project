@@ -64,6 +64,9 @@ public class Rollingstones : MonoBehaviour
                 dataMetric.howItDied = "ThrowLimit";
                 Destroy(gameObject);
             }
+
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
         }
 
         if (spriteRenderer.color.a <= 0)
@@ -90,6 +93,9 @@ public class Rollingstones : MonoBehaviour
             dataMetric.howItDied = "BehindBlindGuy";
             Destroy(gameObject);
         }
+
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.createObstacle(dataMetric);
     }
 
     void OnBecameVisible()

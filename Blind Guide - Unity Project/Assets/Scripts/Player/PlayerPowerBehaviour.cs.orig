@@ -65,7 +65,11 @@ public class PlayerPowerBehaviour : MonoBehaviour {
             case 0:
                 triggeredAnimation = graviBarky;
                 AnimateBarky();
+<<<<<<< 029ee322bc4fcf5be319341036db4b75f9c4f51f
                 dataMetric.type = DataMetricAttack.Type.Telekinesis;
+=======
+                //db.saveMetric(DataMetricAttack())
+>>>>>>> forgot to commit some files
                 break;
             case 1:
                 SpawnSuperPower(fireBall);
@@ -135,12 +139,8 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && !pulling)
         {
             pulling = true;
-            DataMetricAttack dbAttack = new DataMetricAttack();
-            dbAttack.attackTime = Time.timeSinceLevelLoad;
-            dbAttack.type = DataMetricAttack.Type.Telekinesis;
-            DataCollector inst = DataCollector.getInstance();
-            inst.createAttack(dbAttack);
-
+            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
             return;
         }
 

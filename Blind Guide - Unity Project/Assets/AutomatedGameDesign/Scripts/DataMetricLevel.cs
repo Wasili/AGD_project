@@ -9,7 +9,7 @@ public class DataMetricLevel : DataMetric {
 
     private int id;
     public int levelID;
-    public float startTime;
+    public DateTime startTime;
     public float endTime;
     public int playerDied;
     public string howPlayerDied;

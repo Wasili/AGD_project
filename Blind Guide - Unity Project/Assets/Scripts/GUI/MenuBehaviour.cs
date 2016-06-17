@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuBehaviour : MonoBehaviour {
@@ -90,7 +91,7 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadLastPlayedLevel()
     {
-        Application.LoadLevel(lastPlayedLevel);
+        SceneManager.LoadScene(lastPlayedLevel);
     }
 
     public void ActivateMenu(int menuItem)
@@ -103,7 +104,7 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadMain()
     {
-        Application.LoadLevel("MainMenu");
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void QuitGame()
@@ -116,12 +117,12 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadLevel(string levelToLoad)
     {
-        Application.LoadLevel(levelToLoad);
+        SceneManager.LoadScene(levelToLoad);
     }
 
     public void ReloadLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
     }
 
     public void PauseGame()
@@ -140,9 +141,9 @@ public class MenuBehaviour : MonoBehaviour {
     {
         int nextLevelNumber = GetNextLevel();
         if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
-            Application.LoadLevel("Level" + nextLevelNumber);
+            SceneManager.LoadScene("Level" + nextLevelNumber);
         else
-            Application.LoadLevel("CreditScreen");
+            SceneManager.LoadScene("CreditScreen");
     }
 
     public void SaveProgress()
