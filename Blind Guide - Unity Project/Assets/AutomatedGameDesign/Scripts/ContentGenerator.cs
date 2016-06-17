@@ -13,15 +13,33 @@ public class ContentGenerator : MonoBehaviour {
 	private PlayerData playerData;
 
 	public GenerationObstacle[] fireObjects, iceObjects, telekinesisObjects, destructionObjects;
+	private int fireChance, iceChance, telekinesisChance, destructionChance;
+
 	public int levelDifficulty = 100;
 	public int maxDeathDifficultyInfluence = 50;
-	public float segmentWidth = 10;
+	public int segmentWidth = 10;
 	
-	private DataMetricAttack.Type playerType;
-	private List<LevelSegment> segments;
+	private DataMetricAttack.Type playerType = DataMetricAttack.Type.Fire;
+	private List<LevelSegment> segments = new List<LevelSegment>();
+
+	public LevelSegment.Difficulty[] difficultyOrder = { LevelSegment.Difficulty.easy, LevelSegment.Difficulty.medium, LevelSegment.Difficulty.hard, LevelSegment.Difficulty.medium };
+
+	int smallestScore;
 
 	void Start() {
-
+		smallestScore = fireObjects[0].difficulty;
+		for (int i = 0; i < fireObjects.Length; i++) {
+			if (fireObjects[i].difficulty < smallestScore) smallestScore = fireObjects[i].difficulty;
+		}
+		for (int i = 0; i < iceObjects.Length; i++) {
+			if (iceObjects[i].difficulty < smallestScore) smallestScore = iceObjects[i].difficulty;
+		}
+		for (int i = 0; i < telekinesisObjects.Length; i++) {
+			if (telekinesisObjects[i].difficulty < smallestScore) smallestScore = telekinesisObjects[i].difficulty;
+		}
+		for (int i = 0; i < destructionObjects.Length; i++) {
+			if (destructionObjects[i].difficulty < smallestScore) smallestScore = destructionObjects[i].difficulty;
+		}
 		ReadPlayerData();
 		DeterminePlayerType();
 		GenerateSegments();
@@ -39,35 +57,53 @@ public class ContentGenerator : MonoBehaviour {
 
 	void DeterminePlayerType() {
 		//TODO: use player data to determine type
+		fireChance = 30;
+		iceChance = 20;
+		telekinesisChance = 20;
+		destructionChance = 30;
 		int highest = playerData.fire;
 		playerType = DataMetricAttack.Type.Fire;
 	}
 
+	void CreateSegment(LevelSegment.Difficulty diff, float x) {
+		GameObject go = new GameObject("Segment");
+		go.transform.position = new Vector3(x, 0, 0);
+		segments.Add(go.AddComponent<LevelSegment>().SetDifficulty(diff));
+	}
+
 	void GenerateSegments() {
 		//make sure we have a static difficulty curve in our levels
-		LevelSegment.Difficulty[] difficultyOrder = { LevelSegment.Difficulty.easy, LevelSegment.Difficulty.medium, LevelSegment.Difficulty.hard, LevelSegment.Difficulty.medium };
 		int currentDifficulty = 0;
 
 		//calculate how many segments can fit in the level
-		float startPoint = GameObject.FindWithTag("Blindguy").transform.position.x;
+		float startPoint = GameObject.FindWithTag("Blindguy").transform.position.x + 15;
 		float finishPoint = GameObject.FindWithTag("Finish").transform.position.x;
 		int segmentCount = (int)((finishPoint - startPoint) / segmentWidth);
+		int scoreCount = 0;
 
 		//create the segments with their desired difficulty
-		for (int i = 0; i < segmentCount - 1; i++) {
-			segments.Add(new LevelSegment(difficultyOrder[currentDifficulty]));
+		for (int i = 1; i < segmentCount - 1; i++) {
+			float x = startPoint + i * segmentWidth;
+			CreateSegment(difficultyOrder[currentDifficulty], x);
+			scoreCount += (int)difficultyOrder[currentDifficulty];
 			currentDifficulty = currentDifficulty < difficultyOrder.Length - 1 ? currentDifficulty + 1 : 0;
 		}
 		//add a boss segment at the end
-		segments.Add(new LevelSegment(LevelSegment.Difficulty.boss));
+		CreateSegment(LevelSegment.Difficulty.boss, startPoint + (segmentCount - 1) * segmentWidth);
+		SetSegmentScores(scoreCount);
+	}
+
+	void SetSegmentScores(int count) {
+		int scoreBasis = levelDifficulty / count;
+		for (int i = 0; i < segments.Count; i++) {
+			segments[i].SetScore(scoreBasis * (int)segments[i].difficulty);
+		}
 	}
 
 	void GenerateObstacles() {
-		int difficultyCount = 0;
-
 		for (int i = 0; i < segments.Count; i++) {
 			//TODO: spawn obstacles for one segment and add segment difficulty score
-			switch (segments[i].difficulty) {
+			/*switch (segments[i].difficulty) {
 				case LevelSegment.Difficulty.easy:
 					//spawn obstacles
 					//increment difficulty count
@@ -81,6 +117,31 @@ public class ContentGenerator : MonoBehaviour {
 
 				case LevelSegment.Difficulty.boss:
 					break;
+			}*/
+			
+			int difficultyCount = 0;
+			while(difficultyCount + smallestScore < segments[i].difficultyScore) {
+				//pick an obstacle type
+				int randomType = Random.Range(0, 100);
+				GenerationObstacle[] obstacles;
+				if (randomType < fireChance) {
+					obstacles = fireObjects;
+				}
+				else if (randomType < fireChance + iceChance) {
+					obstacles = iceObjects;
+				}
+				else if (randomType < fireChance + iceChance + telekinesisChance) {
+					obstacles = telekinesisObjects;
+				}
+				else {
+					obstacles = destructionObjects;
+				}
+
+				int randomObstacle = Random.Range(0, obstacles.Length-1);
+				if (obstacles[randomObstacle].difficulty + difficultyCount <= segments[i].difficultyScore) {
+					Instantiate(obstacles[randomObstacle].gameObject, segments[i].gameObject.transform.position, obstacles[randomObstacle].transform.rotation);
+					difficultyCount += obstacles[randomObstacle].difficulty;
+				}
 			}
 		}
 	}
