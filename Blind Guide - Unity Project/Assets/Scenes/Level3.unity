@@ -2210,6 +2210,10 @@ Prefab:
       propertyPath: canBeFrozen
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}
+      propertyPath: IcicleIceShattered
+      value: 
+      objectReference: {fileID: 100018, guid: 58e1e1b5a420dd546a994ccaaccdd3a2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4d4a5a69b47750e469032c930b3036fa, type: 2}
   m_IsPrefabParent: 0

@@ -36,7 +36,7 @@ public class MonkeyBusiness : MonoBehaviour {
 	
 	void Throw()
     {
-        GameObject myCoconut = (GameObject)Instantiate(coconut, transform.position, Quaternion.Euler(0, 0, 0));
+        GameObject myCoconut = (GameObject)Instantiate(coconut, transform.position + new Vector3(-1, 0, 0), Quaternion.Euler(0, 0, 0));
         myCoconut.GetComponent<Coconut>().SetVelocity(blindGuyTransform.position, throwOffset, speed, throwHeight);
         timer = frameTime;
         spriteRenderer.sprite = sprites[1];
@@ -87,6 +87,17 @@ public class MonkeyBusiness : MonoBehaviour {
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
             dataMetric.saveLocalData();
             Die();
+        }
+
+        if (col.gameObject.GetComponent<Coconut>() != null && !dead)
+        {
+            if(col.gameObject.GetComponent<Coconut>().kill == true)
+            {
+                dataMetric.howItDied = "Destruction";
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+                dataMetric.saveLocalData();
+                Die();
+            }
         }
     }
 

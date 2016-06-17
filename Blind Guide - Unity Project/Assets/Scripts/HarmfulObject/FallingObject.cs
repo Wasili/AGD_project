@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class FallingObject : MonoBehaviour {
+    Transform blindGuyTransform;
     GameObject blindGuy;
-    bool falling;
+    bool falling = false;
     public float reactionDistance, rotationSpeed, maxAngle;
     public GameObject baseObject;
     public Sprite frozenBase, frozenRock;
@@ -19,6 +20,7 @@ public class FallingObject : MonoBehaviour {
         rotation = -rotationSpeed;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         dataMetric.obstacle = DataMetricObstacle.Obstacle.FallingRock;
+        blindGuyTransform = GameObject.FindWithTag("Blindguy").transform;
     }
 	
 	void Update () 
@@ -54,16 +56,7 @@ public class FallingObject : MonoBehaviour {
             transform.Rotate(new Vector3(0, 0, rotation * Time.deltaTime));
         }
 
-        /*if (blindGuy.transform.position.x > transform.position.x)
-        {
-            dataMetric.howItDied = "Telekinesis";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            if(!dataSend)
-            {
-                dataMetric.saveLocalData();
-                dataSend = true;
-            }
-        }*/
+        
 	}
 
     void OnTriggerEnter2D(Collider2D col)
@@ -79,10 +72,34 @@ public class FallingObject : MonoBehaviour {
             GetComponent<SpriteRenderer>().sprite = frozenRock;
             gameObject.tag = "Untagged";
         }
+
+        if (col.gameObject.tag == "FireAttack" && GetComponent<Rigidbody2D>().gravityScale <= 0)
+        {
+            dataSend = true;
+            dataMetric.howItDied = "Fire";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
+            baseObject.SetActive(false);
+            GetComponent<Rigidbody2D>().gravityScale = 1;
+            gameObject.tag = "Untagged";
+        }
+
     }
 
     void OnBecameVisible()
     {
         dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+    }
+
+    void OnBecameInvisible()
+    {
+        //metric data set to thrown behind blind guy
+        if (transform.position.x < blindGuyTransform.position.x)
+        {
+            dataMetric.defeatedTime = Time.time.ToString();
+            dataMetric.howItDied = "Telekinesis";
+            dataMetric.saveLocalData();
+            Destroy(gameObject);
+        }
     }
 }

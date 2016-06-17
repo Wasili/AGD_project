@@ -95,10 +95,18 @@ public class FlyingEnemy : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "FireAttack" || col.gameObject.tag == "IceAttack")
+        if (col.gameObject.tag == "FireAttack")
         {
             curState = State.dead;
             dataMetric.howItDied = "Fire";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
+        }
+
+        if (col.gameObject.tag == "IceAttack")
+        {
+            curState = State.dead;
+            dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
             dataMetric.saveLocalData();
         }
