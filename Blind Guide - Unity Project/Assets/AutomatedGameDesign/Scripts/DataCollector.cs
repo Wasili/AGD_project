@@ -23,7 +23,6 @@ public class DataCollector {
 
     public void saveMetric(DataMetric metric)
     {
-        Debug.Log(metric.queryForSave);
         IDbCommand dbCommand = dbConnection.CreateCommand();
         dbCommand.CommandText = metric.queryForSave;
         IDataReader dataReader = dbCommand.ExecuteReader();

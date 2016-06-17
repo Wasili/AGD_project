@@ -47,7 +47,7 @@ MonoBehaviour:
   levelDifficulty: 100
   maxDeathDifficultyInfluence: 50
   segmentWidth: 10
-  difficultyOrder: 00000000010000000200000001000000
+  difficultyOrder: 01000000020000000300000002000000
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -129,7 +129,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
   m_LocalPosition: {x: -95.15918, y: -1.2633171, z: -20.0039}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_Children:
   - {fileID: 400002}
   - {fileID: 400004}
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireBall: {fileID: 100004, guid: f46ef13f6b8e4fc4a96057bdf6d0dabc, type: 2}
   iceBall: {fileID: 100004, guid: 0975f9dc1b4cc934eab6e5948184af99, type: 2}
-  superPowerCooldown: 0
+  superPowerCooldown: 1.2
   radiusStart: 0
   radiusBorder: 3
   pullSpeed: 2

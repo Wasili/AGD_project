@@ -120,7 +120,13 @@ public class ContentGenerator : MonoBehaviour {
 			}*/
 			
 			int difficultyCount = 0;
-			while(difficultyCount + smallestScore < segments[i].difficultyScore) {
+
+			float[] segmentPositions = { -(segmentWidth / 3) + 1,
+				0,
+				(segmentWidth / 3)  - 1};
+			int position = 0;
+
+			while (difficultyCount + smallestScore <= segments[i].difficultyScore && position <= 3) {
 				//pick an obstacle type
 				int randomType = Random.Range(0, 100);
 				GenerationObstacle[] obstacles;
@@ -137,9 +143,14 @@ public class ContentGenerator : MonoBehaviour {
 					obstacles = destructionObjects;
 				}
 
-				int randomObstacle = Random.Range(0, obstacles.Length-1);
+				int randomObstacle = Random.Range(0, obstacles.Length);
 				if (obstacles[randomObstacle].difficulty + difficultyCount <= segments[i].difficultyScore) {
-					Instantiate(obstacles[randomObstacle].gameObject, segments[i].gameObject.transform.position, obstacles[randomObstacle].transform.rotation);
+					Debug.Log(randomObstacle);
+					GameObject obs = ((GameObject)Instantiate(obstacles[randomObstacle].gameObject,
+						new Vector3(0, obstacles[randomObstacle].transform.position.y, 0),
+						obstacles[randomObstacle].transform.rotation));
+					obs.transform.parent = segments[i].transform;
+					obs.transform.localPosition = new Vector3(segmentPositions[position++], obs.transform.localPosition.y, 0);					
 					difficultyCount += obstacles[randomObstacle].difficulty;
 				}
 			}
