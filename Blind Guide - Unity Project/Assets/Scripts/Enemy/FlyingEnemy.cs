@@ -102,6 +102,14 @@ public class FlyingEnemy : MonoBehaviour {
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
             dataMetric.saveLocalData();
         }
+
+        if (col.gameObject.tag == "IceAttack")
+        {
+            curState = State.dead;
+            dataMetric.howItDied = "Ice";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.saveLocalData();
+        }
     }
 
     void OnDrawGizmosSelected()
