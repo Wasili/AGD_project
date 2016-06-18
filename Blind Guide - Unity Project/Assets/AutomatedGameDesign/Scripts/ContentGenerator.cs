@@ -3,23 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ContentGenerator : MonoBehaviour {
-	struct PlayerData {
-		public int deaths;
-		public int fire;
-		public int ice;
-		public int telekinesis;
-		public int destruction;
+	struct PowerUsage {
+		public DataMetricAttack.Type type;
+		public int usage;
+		public int spawnChance;
 	}
-	private PlayerData playerData;
+	private PowerUsage[] powerData = new PowerUsage[4];
 
 	public GenerationObstacle[] fireObjects, iceObjects, telekinesisObjects, destructionObjects;
-	private int fireChance, iceChance, telekinesisChance, destructionChance;
 
 	public int levelDifficulty = 100;
 	public int maxDeathDifficultyInfluence = 50;
 	public int segmentWidth = 10;
 	
-	private DataMetricAttack.Type playerType = DataMetricAttack.Type.Fire;
 	private List<LevelSegment> segments = new List<LevelSegment>();
 
 	public LevelSegment.Difficulty[] difficultyOrder = { LevelSegment.Difficulty.easy, LevelSegment.Difficulty.medium, LevelSegment.Difficulty.hard, LevelSegment.Difficulty.medium };
@@ -27,6 +23,7 @@ public class ContentGenerator : MonoBehaviour {
 	int smallestScore;
 
 	void Start() {
+		//find the smallest difficulty value in our spawnable objects for use during obstacle generation
 		smallestScore = fireObjects[0].difficulty;
 		for (int i = 0; i < fireObjects.Length; i++) {
 			if (fireObjects[i].difficulty < smallestScore) smallestScore = fireObjects[i].difficulty;
@@ -40,29 +37,39 @@ public class ContentGenerator : MonoBehaviour {
 		for (int i = 0; i < destructionObjects.Length; i++) {
 			if (destructionObjects[i].difficulty < smallestScore) smallestScore = destructionObjects[i].difficulty;
 		}
+
 		ReadPlayerData();
-		DeterminePlayerType();
+		CalculateTypePercentages();
 		GenerateSegments();
 		GenerateObstacles();
 	}
 
 	void ReadPlayerData() {
+		powerData[0].type = DataMetricAttack.Type.Fire;
+		powerData[1].type = DataMetricAttack.Type.Ice;
+		powerData[2].type = DataMetricAttack.Type.Telekinesis;
+		powerData[3].type = DataMetricAttack.Type.Destruction;
 		//TODO: read player data from database
-		playerData.deaths = 5;
-		playerData.fire = 9;
-		playerData.ice = 6;
-		playerData.telekinesis = 5;
-		playerData.destruction = 3;
+		powerData[0].usage = 9;
+		powerData[1].usage = 6;
+		powerData[2].usage = 7;
+		powerData[3].usage = 2;
 	}
 
-	void DeterminePlayerType() {
-		//TODO: use player data to determine type
-		fireChance = 30;
-		iceChance = 20;
-		telekinesisChance = 20;
-		destructionChance = 30;
-		int highest = playerData.fire;
-		playerType = DataMetricAttack.Type.Fire;
+	void CalculateTypePercentages() {
+		int highestUsage = 0;
+		int highestType = 0;
+		//loop through all powers to see which one is used the most
+		for (int i = 0; i < powerData.Length; i++) {
+			//the default spawn power for all obstacles is 2
+			powerData[i].spawnChance = 2;
+			if (powerData[i].usage > highestUsage) {
+				highestType = i;
+				highestUsage = powerData[i].usage;
+			}
+		}
+		//set the spawn chance of the most used to power to 1
+		powerData[highestType].spawnChance = 1;
 	}
 
 	void CreateSegment(LevelSegment.Difficulty diff, float x) {
@@ -94,63 +101,54 @@ public class ContentGenerator : MonoBehaviour {
 	}
 
 	void SetSegmentScores(int count) {
+		//calculate the 'easy' score 
 		int scoreBasis = levelDifficulty / count;
 		for (int i = 0; i < segments.Count; i++) {
+			//multiply the easy score by the desired difficulty (medium=2*easy, hard=3*easy)
 			segments[i].SetScore(scoreBasis * (int)segments[i].difficulty);
 		}
 	}
 
 	void GenerateObstacles() {
 		for (int i = 0; i < segments.Count; i++) {
-			//TODO: spawn obstacles for one segment and add segment difficulty score
-			/*switch (segments[i].difficulty) {
-				case LevelSegment.Difficulty.easy:
-					//spawn obstacles
-					//increment difficulty count
-					break;
-
-				case LevelSegment.Difficulty.medium:
-					break;
-
-				case LevelSegment.Difficulty.hard:
-					break;
-
-				case LevelSegment.Difficulty.boss:
-					break;
-			}*/
-			
+			//keep track of the total difficulty of obstacles in this segment
 			int difficultyCount = 0;
 
-			float[] segmentPositions = { -(segmentWidth / 3) + 1,
+			//store positions for obstacles (only 3 obstacles allowed per segment)
+			float[] segmentPositions = { -(segmentWidth / 2) + 2,
 				0,
-				(segmentWidth / 3)  - 1};
+				(segmentWidth / 2)  - 2};
 			int position = 0;
 
-			while (difficultyCount + smallestScore <= segments[i].difficultyScore && position <= 3) {
+			//prevent infinite loops
+			int fallback = 0;
+			//spawn obstacles until the segment difficulty score has been reached (never spawn more than 3 obstacles in one segment)
+			while (difficultyCount + smallestScore <= segments[i].difficultyScore && position < 3 && fallback++ < 100) {
 				//pick an obstacle type
-				int randomType = Random.Range(0, 100);
+				int randomType = Random.Range(0, powerData[0].spawnChance + powerData[1].spawnChance + powerData[2].spawnChance + powerData[3].spawnChance);
 				GenerationObstacle[] obstacles;
-				if (randomType < fireChance) {
+				if (randomType < powerData[0].spawnChance) {
 					obstacles = fireObjects;
 				}
-				else if (randomType < fireChance + iceChance) {
+				else if (randomType < powerData[0].spawnChance + powerData[1].spawnChance) {
 					obstacles = iceObjects;
 				}
-				else if (randomType < fireChance + iceChance + telekinesisChance) {
+				else if (randomType < powerData[0].spawnChance + powerData[1].spawnChance + powerData[2].spawnChance) {
 					obstacles = telekinesisObjects;
 				}
 				else {
 					obstacles = destructionObjects;
 				}
 
+				//pick a radom obstacle
 				int randomObstacle = Random.Range(0, obstacles.Length);
+				//make sure the obstacle is not too difficult for the segment
 				if (obstacles[randomObstacle].difficulty + difficultyCount <= segments[i].difficultyScore) {
-					Debug.Log(randomObstacle);
 					GameObject obs = ((GameObject)Instantiate(obstacles[randomObstacle].gameObject,
 						new Vector3(0, obstacles[randomObstacle].transform.position.y, 0),
 						obstacles[randomObstacle].transform.rotation));
 					obs.transform.parent = segments[i].transform;
-					obs.transform.localPosition = new Vector3(segmentPositions[position++], obs.transform.localPosition.y, 0);					
+					obs.transform.localPosition = new Vector3(segmentPositions[position++], obs.transform.localPosition.y, 0);	
 					difficultyCount += obstacles[randomObstacle].difficulty;
 				}
 			}

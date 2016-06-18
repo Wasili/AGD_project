@@ -16,11 +16,11 @@ public class FireFinish : MonoBehaviour {
         sRenderer = GetComponent<SpriteRenderer>();
         myFlameScript = GetComponent<SetFlameDeath>();
         dataMetric.obstacle = DataMetricObstacle.Obstacle.FireFinish;
+		gameObject.tag = "Untagged";
     }
 	
 	void Update () 
     {
-
         if (burning)
         {
             sRenderer.sprite = fireSprite;

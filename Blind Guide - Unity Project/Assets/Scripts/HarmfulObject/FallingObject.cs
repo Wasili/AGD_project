@@ -35,6 +35,7 @@ public class FallingObject : MonoBehaviour {
         {
             baseObject.SetActive(false);
             GetComponent<Rigidbody2D>().gravityScale = 1;
+			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
 
         timer += rotation * Time.deltaTime;
@@ -81,8 +82,8 @@ public class FallingObject : MonoBehaviour {
             dataMetric.saveLocalData();
             baseObject.SetActive(false);
             GetComponent<Rigidbody2D>().gravityScale = 1;
-            gameObject.tag = "Untagged";
-        }
+			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+		}
 
     }
 
