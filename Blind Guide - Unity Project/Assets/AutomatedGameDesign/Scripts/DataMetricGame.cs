@@ -9,7 +9,6 @@ public class DataMetricGame : DataMetric
     public DateTime starttime;
     public float endTime;
     private List<DataMetricLevel> levels = new List<DataMetricLevel>();
-    private int
 
     public DataMetricGame()
     {
