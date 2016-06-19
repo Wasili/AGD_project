@@ -43,6 +43,7 @@ public class DataCollector {
 
     public void startLevel(DataMetricLevel.Level level)
     {
+        createGame();
         if (_currLevel == null)
         {
             Debug.Log("Creating level...");
@@ -61,6 +62,7 @@ public class DataCollector {
             {
                 _currLevel.howPlayerDied = howPlayerDied;
             }
+            _currLevel.howPlayerDied = "";
 
             _currGame.addLevel(_currLevel);
             _currLevel = null;

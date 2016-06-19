@@ -48,6 +48,8 @@ public class Rollingstones : MonoBehaviour
             shrinked = false;
             speed = 0;
         }
+
+        
         if (pickedUp && !GetComponent<Rigidbody2D>().isKinematic)
         {
             thrown = true;
@@ -61,7 +63,7 @@ public class Rollingstones : MonoBehaviour
             if (myTransform.localScale.x <= 0 || spriteRenderer.color.a <= 0)
             {
                 dataMetric.defeatedTime = Time.time;
-                dataMetric.howItDied = "ThrowLimit";
+                dataMetric.howItDied = "Telekinesis";
                 Destroy(gameObject);
             }
 
@@ -90,7 +92,7 @@ public class Rollingstones : MonoBehaviour
         if (transform.position.x < blindGuyTransform.position.x)
         {
             dataMetric.defeatedTime = Time.time;
-            dataMetric.howItDied = "BehindBlindGuy";
+            dataMetric.howItDied = "Telekinesis";
             Destroy(gameObject);
         }
 

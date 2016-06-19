@@ -3,8 +3,10 @@ using System.Collections;
 
 public class Icicle : MonoBehaviour {
 
+    Transform blindGuyTransform;
     GameObject BlindMan;
     public GameObject IcicleShattered;
+    public GameObject IcicleIceShattered;
     public float shakeDistance = 2;
     public float fellDistance = 0.5f;
     public float shakeSpeed;
@@ -16,11 +18,13 @@ public class Icicle : MonoBehaviour {
     public AudioClip icicleImpact;
     DataMetricObstacle dataMetric = new DataMetricObstacle();
     bool dataSend = false;
+    bool vallen = false;
 
     void Start()
     {
         GetComponent<Rigidbody2D>().gravityScale = 0;
         dataMetric.obstacle = DataMetricObstacle.Obstacle.Icicle;
+        blindGuyTransform = GameObject.FindWithTag("Blindguy").transform;
     }
 
     void Update()
@@ -54,13 +58,17 @@ public class Icicle : MonoBehaviour {
         if (Vector2.Distance(radiusChecker.transform.position, BlindMan.transform.position) <= fellDistance)
         {
             GetComponent<Rigidbody2D>().gravityScale = 1;
+            gameObject.tag = "PullableObject";
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            vallen = true;
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "FireAttack" && canBeMelted)
+        if (col.gameObject.tag == "FireAttack" && canBeMelted && !dataSend)
         {
+            dataSend = true;
             dataMetric.howItDied = "Fire";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             //if (isSpecial)
@@ -73,8 +81,12 @@ public class Icicle : MonoBehaviour {
             //    Destroy(gameObject);
         }
 
-        if (col.gameObject.tag == "IceAttack" && canBeFrozen && !frozen)
+        if (col.gameObject.tag == "IceAttack" && canBeFrozen && !frozen && !dataSend)
         {
+            gameObject.tag = "PullableObject";
+            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+
+            dataSend = true;
             dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             if (isSpecial)
@@ -111,8 +123,16 @@ public class Icicle : MonoBehaviour {
             dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
             dataMetric.saveLocalData();
             */
+            if (frozen) myShatters = ((GameObject)Instantiate(IcicleIceShattered, transform.position, transform.rotation)).transform;
 
-            myShatters = ((GameObject) Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
+            else myShatters = ((GameObject)Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
+
+            dataMetric.defeatedTime = Time.time;
+            dataMetric.howItDied = "Telekinesis";
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
+            Destroy(gameObject);
+
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             gameObject.GetComponent<Collider2D>().enabled = false;
             collided = true;
@@ -123,6 +143,21 @@ public class Icicle : MonoBehaviour {
     {
         GetComponent<AudioSource>().clip = sound;
         GetComponent<AudioSource>().Play();
+    }
+
+    void OnBecameInvisible()
+    {
+        GetComponent<AudioSource>().Stop();
+
+        //metric data set to thrown behind blind guy
+        if (transform.position.x < blindGuyTransform.position.x)
+        {
+            dataMetric.defeatedTime = Time.time;
+            dataMetric.howItDied = "Telekinesis";
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
+            Destroy(gameObject);
+        }
     }
 
     void OnBecameVisible()

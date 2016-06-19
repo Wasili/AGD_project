@@ -103,6 +103,15 @@ public class FlyingEnemy : MonoBehaviour {
             DataCollector datacoll = DataCollector.getInstance();
             datacoll.createObstacle(dataMetric);
         }
+
+        if (col.gameObject.tag == "IceAttack")
+        {
+            curState = State.dead;
+            dataMetric.howItDied = "Ice";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
+        }
     }
 
     void OnDrawGizmosSelected()

@@ -22,6 +22,7 @@ public class BlindGuyAI : MonoBehaviour {
     public float animationTime = 1;
     float frameTimer;
     public AudioClip freezeDeath, flameDeath, dazedDeath;
+    bool die = false;
 
     Sprite[] triggeredAnimation;
 

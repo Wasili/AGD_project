@@ -36,6 +36,7 @@ public class Geyser : MonoBehaviour {
             if (spawnedJet != null)
                 spawnedJet.GetComponent<Jet>().frozenState = true;
         }
+
         if (target.gameObject.tag == "PullableObject") {
             if (target.gameObject.GetComponent<Rollingstones>() != null)
             {
