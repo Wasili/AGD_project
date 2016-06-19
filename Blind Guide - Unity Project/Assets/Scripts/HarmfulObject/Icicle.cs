@@ -148,7 +148,12 @@ public class Icicle : MonoBehaviour {
 
     void OnBecameInvisible()
     {
-        GetComponent<AudioSource>().Stop();
+		try {
+			GetComponent<AudioSource>().Stop();
+		}
+		catch(MissingComponentException e) {
+
+		}
 
         //metric data set to thrown behind blind guy
         if (transform.position.x < blindGuyTransform.position.x)

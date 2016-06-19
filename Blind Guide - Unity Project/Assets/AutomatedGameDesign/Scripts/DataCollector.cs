@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
-using Mono.Data.Sqlite;
-using System.Data;
-
 
 public class DataCollector {
     private static DataCollector _instance;
 
     private string _constr = "URI=file:" + Application.dataPath + "/AutomatedGameDesign/Scripts/agd_db.db";
-    private IDbConnection dbConnection;
+    //private IDbConnection dbConnection;
     
     DataCollector()
     {
-        dbConnection = (IDbConnection)new SqliteConnection(_constr);
-        dbConnection.Open();
+        /*dbConnection = (IDbConnection)new SqliteConnection(_constr);
+        dbConnection.Open();*/
     }
 
     public static DataCollector getInstance()
@@ -23,17 +20,17 @@ public class DataCollector {
 
     public void saveMetric(DataMetric metric)
     {
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+        /*IDbCommand dbCommand = dbConnection.CreateCommand();
         dbCommand.CommandText = metric.queryForSave;
         IDataReader dataReader = dbCommand.ExecuteReader();
 
         dataReader.Close();
-        dbCommand.Dispose();
+        dbCommand.Dispose();*/
     }
 
     public DataMetric getMetricData(string name)
     {
-        IDbCommand dbCommand = dbConnection.CreateCommand();
+        /*IDbCommand dbCommand = dbConnection.CreateCommand();
         dbCommand.CommandText = "SELECT * FROM Attack WHERE name=" + name;
         IDataReader dataReader = dbCommand.ExecuteReader();
         while (dataReader.Read())
@@ -43,7 +40,7 @@ public class DataCollector {
         }
 
         dataReader.Close();
-        dbCommand.Dispose();
+        dbCommand.Dispose();*/
 
         return null;
     }
