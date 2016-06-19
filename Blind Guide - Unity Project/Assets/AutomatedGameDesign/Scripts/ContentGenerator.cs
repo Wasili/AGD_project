@@ -13,9 +13,10 @@ public class ContentGenerator : MonoBehaviour {
 	public GenerationObstacle[] fireObjects, iceObjects, telekinesisObjects, destructionObjects;
 
 	public int levelDifficulty = 100;
-	public int maxDeathDifficultyInfluence = 50;
 	public int segmentWidth = 10;
-	
+
+	private int playerDeaths;
+	private int maxDeathDifficultyInfluence = 50;
 	private List<LevelSegment> segments = new List<LevelSegment>();
 
 	public LevelSegment.Difficulty[] difficultyOrder = { LevelSegment.Difficulty.easy, LevelSegment.Difficulty.medium, LevelSegment.Difficulty.hard, LevelSegment.Difficulty.medium };
@@ -54,6 +55,8 @@ public class ContentGenerator : MonoBehaviour {
 		powerData[1].usage = 6;
 		powerData[2].usage = 7;
 		powerData[3].usage = 2;
+
+		playerDeaths = 10;
 	}
 
 	void CalculateTypePercentages() {
@@ -72,13 +75,12 @@ public class ContentGenerator : MonoBehaviour {
 		powerData[highestType].spawnChance = 1;
 	}
 
-	void CreateSegment(LevelSegment.Difficulty diff, float x) {
-		GameObject go = new GameObject("Segment");
-		go.transform.position = new Vector3(x, 0, 0);
-		segments.Add(go.AddComponent<LevelSegment>().SetDifficulty(diff));
-	}
-
 	void GenerateSegments() {
+		float difficulty = levelDifficulty, influence = maxDeathDifficultyInfluence, deaths = playerDeaths;
+
+		levelDifficulty = (int)(difficulty - (influence * (Mathf.Min(deaths, 10) / 10)));
+		
+
 		//make sure we have a static difficulty curve in our levels
 		int currentDifficulty = 0;
 
@@ -98,6 +100,12 @@ public class ContentGenerator : MonoBehaviour {
 		//add a boss segment at the end
 		CreateSegment(LevelSegment.Difficulty.boss, startPoint + (segmentCount - 1) * segmentWidth);
 		SetSegmentScores(scoreCount);
+	}
+
+	void CreateSegment(LevelSegment.Difficulty diff, float x) {
+		GameObject go = new GameObject("Segment");
+		go.transform.position = new Vector3(x, 0, 0);
+		segments.Add(go.AddComponent<LevelSegment>().SetDifficulty(diff));
 	}
 
 	void SetSegmentScores(int count) {

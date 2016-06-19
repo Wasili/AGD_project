@@ -25,6 +25,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.203516, y: 1.1565818, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -44,17 +45,13 @@ MonoBehaviour:
   - {fileID: 11408160, guid: 2e08afabd8398374eb99b249ec4d96bb, type: 2}
   - {fileID: 11478360, guid: caac12915b1f7234abdbabc34586f379, type: 2}
   iceObjects:
-  - {fileID: 11475500, guid: 4d61943aa559f82439205546acc832a7, type: 2}
+  - {fileID: 11426700, guid: cc8d99f4a014a4848bd076c9acff94c6, type: 2}
   telekinesisObjects:
   - {fileID: 11416876, guid: 61683baddc0916e48913dcaf3b78fe04, type: 2}
   - {fileID: 11485396, guid: 13e2f5ab03bdadd4b9e5ee3b2388158d, type: 2}
   - {fileID: 11408160, guid: 2e08afabd8398374eb99b249ec4d96bb, type: 2}
   destructionObjects:
-  - {fileID: 11475500, guid: 4d61943aa559f82439205546acc832a7, type: 2}
-  fireChance: 0
-  iceChance: 0
-  telekinesisChance: 0
-  destructionChance: 0
+  - {fileID: 11426700, guid: cc8d99f4a014a4848bd076c9acff94c6, type: 2}
   levelDifficulty: 140
   maxDeathDifficultyInfluence: 50
   segmentWidth: 10

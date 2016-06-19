@@ -155,14 +155,15 @@ public class Icicle : MonoBehaviour {
 
 		}
 
-        //metric data set to thrown behind blind guy
-        if (transform.position.x < blindGuyTransform.position.x)
-        {
-            dataMetric.defeatedTime = Time.time.ToString();
-            dataMetric.howItDied = "Telekinesis";
-            dataMetric.saveLocalData();
-            Destroy(gameObject);
-        }
+		//metric data set to thrown behind blind guy
+		if (transform != null && blindGuyTransform != null) {
+			if (transform.position.x < blindGuyTransform.position.x) {
+				dataMetric.defeatedTime = Time.time.ToString();
+				dataMetric.howItDied = "Telekinesis";
+				dataMetric.saveLocalData();
+				Destroy(gameObject);
+			}
+		}
     }
 
     void OnBecameVisible()
