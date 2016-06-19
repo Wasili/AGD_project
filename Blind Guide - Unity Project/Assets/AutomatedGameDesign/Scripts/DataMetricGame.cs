@@ -9,6 +9,7 @@ public class DataMetricGame : DataMetric
     public DateTime starttime;
     public float endTime;
     private List<DataMetricLevel> levels = new List<DataMetricLevel>();
+    private int
 
     public DataMetricGame()
     {
@@ -18,7 +19,19 @@ public class DataMetricGame : DataMetric
     public void addLevel(DataMetricLevel level)
     {
         Debug.Log("Added level...");
-        levels.Add(level); 
+        levels.Add(level);
+    }
+
+    public DataMetricLevel getLastLevel()
+    {
+        if (levels.Count > 0)
+        {
+            return levels[levels.Count - 1];
+        }
+        else
+        {
+            return null;
+        }
     }
 
     //public override void saveLocalData()

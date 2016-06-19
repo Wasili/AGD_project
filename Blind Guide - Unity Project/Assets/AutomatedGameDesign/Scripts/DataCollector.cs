@@ -85,6 +85,18 @@ public class DataCollector {
         }
     }
 
+    public DataMetricLevel getLastLevel()
+    {
+        if(_currGame == null)
+        {
+            return null;
+        }
+        else
+        {
+            return _currGame.getLastLevel();
+        }
+    }
+
     //public void finishedGame(Time finished, bool playerDied)
     //{
     //    _currGame.endTime = finished;

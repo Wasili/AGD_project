@@ -64,11 +64,11 @@ public class Rollingstones : MonoBehaviour
             {
                 dataMetric.defeatedTime = Time.time;
                 dataMetric.howItDied = "Telekinesis";
+                DataCollector datacoll = DataCollector.getInstance();
+                datacoll.createObstacle(dataMetric);
                 Destroy(gameObject);
             }
 
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
         }
 
         if (spriteRenderer.color.a <= 0)
@@ -93,11 +93,11 @@ public class Rollingstones : MonoBehaviour
         {
             dataMetric.defeatedTime = Time.time;
             dataMetric.howItDied = "Telekinesis";
+
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
-
-        DataCollector datacoll = DataCollector.getInstance();
-        datacoll.createObstacle(dataMetric);
     }
 
     void OnBecameVisible()

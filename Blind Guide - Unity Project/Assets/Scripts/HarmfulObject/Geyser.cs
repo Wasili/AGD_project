@@ -42,7 +42,7 @@ public class Geyser : MonoBehaviour {
             {
                 if (target.gameObject.GetComponent<Rollingstones>().thrown)
                 {
-                    dataMetric.howItDied = "Destruction";
+                    dataMetric.howItDied = "Telekinesis";
                     dataMetric.defeatedTime = Time.timeSinceLevelLoad;
                     DataCollector datacoll = DataCollector.getInstance();
                     datacoll.createObstacle(dataMetric);
