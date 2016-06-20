@@ -39,7 +39,6 @@ public class DataMetricLevel : DataMetric {
 
     public void addAttack(DataMetricAttack attack)
     {
-        Debug.Log("added attack...");
         attacks.Add(attack);
     }
 
@@ -70,14 +69,12 @@ public class DataMetricLevel : DataMetric {
 
     public void addObstacle(DataMetricObstacle obstacle)
     {
-        Debug.Log("Added obstacle...");
         obstacles.Add(obstacle);
         getQtyOfAttacks();
     }
 
     public void addRating(DataMetricRating rateReceive)
     {
-        Debug.Log("Adding rating...");
         rate = rateReceive;
     }
 

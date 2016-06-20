@@ -22,7 +22,6 @@ public class DataMetricGame : DataMetric
 
     public void addLevel(DataMetricLevel level)
     {
-        Debug.Log("Added level...");
         levels.Add(level);
     }
 
