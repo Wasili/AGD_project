@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &177186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 458688}
+  - 114: {fileID: 11449648}
+  m_Layer: 0
+  m_Name: JungleContentGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &458688
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177186}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.203516, y: 1.1565818, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11449648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7429208e3f70841a8ae0fb35176b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireObjects:
+  - {fileID: 11437388, guid: 8aa71f30ba5c30e498c4e3dfeca4ddd6, type: 2}
+  - {fileID: 11424392, guid: da63f682f9c905943bcdaeaf5e25fc60, type: 2}
+  - {fileID: 11422432, guid: 4a95256d808283a409a16d5077c3e9c9, type: 2}
+  - {fileID: 11492830, guid: 560b7690e93e35b40a48d0aad36879b3, type: 2}
+  iceObjects:
+  - {fileID: 11422432, guid: 4a95256d808283a409a16d5077c3e9c9, type: 2}
+  - {fileID: 11488166, guid: f9236000cb0aa6847a4a802c180d9a3c, type: 2}
+  - {fileID: 11437388, guid: 8aa71f30ba5c30e498c4e3dfeca4ddd6, type: 2}
+  - {fileID: 11424392, guid: da63f682f9c905943bcdaeaf5e25fc60, type: 2}
+  - {fileID: 11475500, guid: 4d61943aa559f82439205546acc832a7, type: 2}
+  telekinesisObjects:
+  - {fileID: 11488166, guid: f9236000cb0aa6847a4a802c180d9a3c, type: 2}
+  - {fileID: 11435258, guid: 71687470f16590a41b78a5f9424b896b, type: 2}
+  destructionObjects:
+  - {fileID: 11475500, guid: 4d61943aa559f82439205546acc832a7, type: 2}
+  - {fileID: 11492830, guid: 560b7690e93e35b40a48d0aad36879b3, type: 2}
+  levelDifficulty: 240
+  maxDeathDifficultyInfluence: 50
+  segmentWidth: 10
+  difficultyOrder: 01000000020000000300000002000000
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 177186}
+  m_IsPrefabParent: 1

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class BlindGuyAI : MonoBehaviour {
     public float stopTimer = 0;
@@ -30,11 +31,10 @@ public class BlindGuyAI : MonoBehaviour {
 	void Start ()
     {
         // dataMetric.level = GameObject.FindWithTag("level");
-        dataMetric.level = (DataMetricGame.Level) Application.loadedLevel;
+        DataCollector inst = DataCollector.getInstance();
+        inst.startLevel((DataMetricLevel.Levels) Application.loadedLevel);
         frameTimer = animationTime;
         regularSpeed = speed;
-        dataMetric.starttime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.session = 0;
     }
 	
 	void Update () 
@@ -65,18 +65,18 @@ public class BlindGuyAI : MonoBehaviour {
     {
         if (col.tag == "Finish")
         {
-            dataMetric.howPlayerDied = "";
-            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.playerDied = 0;
-            dataMetric.saveLocalData();
-            if (Application.loadedLevelName == "Level10")
+            DataCollector inst = DataCollector.getInstance();
+            inst.endLevel(false);
+
+            Debug.Log(SceneManager.GetActiveScene().name);
+            if (SceneManager.GetActiveScene().name == "Level10")
             {
-                Application.LoadLevel("PostGameScene");
+                SceneManager.LoadScene("PostGameScene");
                 return;
             }
             MenuBehaviour menuScript = GameObject.FindWithTag("UIBehaviour").GetComponent<MenuBehaviour>();
             menuScript.SaveProgress();
-            Application.LoadLevel("WinState");
+            SceneManager.LoadScene("WinState");
         }
 
         if (col.tag == "FallingTrigger")
@@ -88,62 +88,44 @@ public class BlindGuyAI : MonoBehaviour {
 
     void LoadLevel()
     {
-        Application.LoadLevel("LossState");
+        SceneManager.LoadScene("LossState");
     }
 
    
     public void SetDizzyDeath() 
     {
-        if(!die)
-        {
-            dataMetric.howPlayerDied = "Dizzy";
-            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.playerDied = 1;
-            dataMetric.saveLocalData();
-            Invoke("LoadLevel", 3f);
-            regularSpeed = 0;
-            speed = 0;
-            triggeredAnimation = dizzy;
-            dying = true;
-            AudioSource.PlayClipAtPoint(dazedDeath, transform.position);
-            die = true;
-        }
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Dizzy");
+        Invoke("LoadLevel", 3f);
+        regularSpeed = 0;
+        speed = 0;
+        triggeredAnimation = dizzy;
+        dying = true;
+        AudioSource.PlayClipAtPoint(dazedDeath, transform.position);
     }
 
     public void SetFlameDeath()
     {
-        if (!die)
-        {
-            dataMetric.howPlayerDied = "Flames";
-            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.playerDied = 1;
-            dataMetric.saveLocalData();
-            Invoke("LoadLevel", 3f);
-            regularSpeed = 0;
-            speed = 0;
-            triggeredAnimation = burned;
-            dying = true;
-            AudioSource.PlayClipAtPoint(flameDeath, transform.position);
-            die = true;
-        }
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Flames");
+        Invoke("LoadLevel", 3f);
+        regularSpeed = 0;
+        speed = 0;
+        triggeredAnimation = burned;
+        dying = true;
+        AudioSource.PlayClipAtPoint(flameDeath, transform.position);
     }
 
     public void SetFrozenDeath()
     {
-        if(!die)
-        {
-            dataMetric.howPlayerDied = "Frozen";
-            dataMetric.endTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.playerDied = 1;
-            dataMetric.saveLocalData();
-            Invoke("LoadLevel", 3f);
-            regularSpeed = 0;
-            speed = 0;
-            triggeredAnimation = frozen;
-            dying = true;
-            AudioSource.PlayClipAtPoint(freezeDeath, transform.position);
-            die = true;
-        }
+        DataCollector inst = DataCollector.getInstance();
+        inst.endLevel(true, "Frozen");
+        Invoke("LoadLevel", 3f);
+        regularSpeed = 0;
+        speed = 0;
+        triggeredAnimation = frozen;
+        dying = true;
+        AudioSource.PlayClipAtPoint(freezeDeath, transform.position);
     }
 
     void AnimateBlindGuy()

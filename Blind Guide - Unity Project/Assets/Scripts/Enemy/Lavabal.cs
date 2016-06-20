@@ -12,7 +12,7 @@ public class Lavabal : MonoBehaviour {
 		GetComponent<Rigidbody2D>().velocity = (blindTransform.position - transform.position).normalized * speed;
 		GetComponent<Rigidbody2D>().velocity += new Vector2(0, upwardSpeed);
         dataMetric.obstacle = DataMetricObstacle.Obstacle.LavaBall;
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 
     void Awake()
@@ -33,8 +33,9 @@ Time.deltaTime);
         if (ice.gameObject.tag == "IceAttack")
         {
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }
@@ -44,8 +45,9 @@ Time.deltaTime);
         if (col.gameObject.tag == "Ground")
         {
             dataMetric.howItDied = "Telekinesis";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }
@@ -53,8 +55,7 @@ Time.deltaTime);
     void OnBecameInvisible()
     {
         dataMetric.howItDied = "Telekinesis";
-        dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-        dataMetric.saveLocalData();
+        dataMetric.defeatedTime = Time.timeSinceLevelLoad;
         Destroy(gameObject);
     }
 }

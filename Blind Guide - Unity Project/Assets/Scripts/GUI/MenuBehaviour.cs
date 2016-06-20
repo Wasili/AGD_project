@@ -21,6 +21,12 @@ public class MenuBehaviour : MonoBehaviour {
     Color pauseBackgroundColor;
     string pauseButtonName = "Pause";
 
+    Color originalColor = new Color(255, 255, 255);
+    Color changedColor = new Color(36, 36, 36);
+
+    bool nextLevel = false;
+    int countVotes = 0;
+
 	void Start() 
     {
         //CHEATS
@@ -138,11 +144,13 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void NextLevel()
     {
-        int nextLevelNumber = GetNextLevel();
-        if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
-            Application.LoadLevel("Level" + nextLevelNumber);
-        else
-            Application.LoadLevel("CreditScreen");
+        if (nextLevel) {
+            int nextLevelNumber = GetNextLevel();
+            if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
+                Application.LoadLevel("Level" + nextLevelNumber);
+            else
+                Application.LoadLevel("CreditScreen");
+        }
     }
 
     public void SaveProgress()
@@ -178,6 +186,19 @@ public class MenuBehaviour : MonoBehaviour {
     void ResetLevelProgress()
     {
         PlayerPrefs.SetInt("LastUnlockedLevel", 1);
+    }
+
+    public void VoteStar()
+    {
+        /*ColorBlock colorBlock = GetComponent<Button>.colors;
+        GetComponent<Button>().colors = Color.black;
+        countVotes++;
+        if (countVotes == 2)
+        {
+            nextLevel = true;
+
+        }*/
+
     }
 
     public void ActivateCurrentItem()

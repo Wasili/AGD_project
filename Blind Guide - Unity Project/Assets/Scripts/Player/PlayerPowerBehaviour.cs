@@ -79,6 +79,8 @@ public class PlayerPowerBehaviour : MonoBehaviour {
                 AnimateBarky();
                 dataMetric.type = DataMetricAttack.Type.Ice;
                 break;
+                
+                //DataCollector db = DataCollector.getInstance();
         }
 
         CooldownFireIce();
@@ -133,8 +135,12 @@ public class PlayerPowerBehaviour : MonoBehaviour {
         if (Input.GetButtonDown(usePowerButtonName) && !pulling)
         {
             pulling = true;
-            dataMetric.attackTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            DataMetricAttack dbAttack = new DataMetricAttack();
+            dbAttack.attackTime = Time.timeSinceLevelLoad;
+            dbAttack.type = DataMetricAttack.Type.Telekinesis;
+            DataCollector inst = DataCollector.getInstance();
+            inst.createAttack(dbAttack);
+
             return;
         }
 

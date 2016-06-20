@@ -14,7 +14,8 @@ public class FallingObject : MonoBehaviour {
     DataMetricObstacle dataMetric = new DataMetricObstacle();
     bool dataSend = false;
 
-    void Start () 
+
+    void Start()
     {
         blindGuy = GameObject.FindWithTag("Blindguy");
         rotation = -rotationSpeed;
@@ -22,8 +23,8 @@ public class FallingObject : MonoBehaviour {
         dataMetric.obstacle = DataMetricObstacle.Obstacle.FallingRock;
         blindGuyTransform = GameObject.FindWithTag("Blindguy").transform;
     }
-	
-	void Update () 
+
+    void Update()
     {
         if (frozen)
             return;
@@ -35,6 +36,7 @@ public class FallingObject : MonoBehaviour {
         {
             baseObject.SetActive(false);
             GetComponent<Rigidbody2D>().gravityScale = 1;
+			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
 
         timer += rotation * Time.deltaTime;
@@ -55,9 +57,7 @@ public class FallingObject : MonoBehaviour {
         {
             transform.Rotate(new Vector3(0, 0, rotation * Time.deltaTime));
         }
-
-        
-	}
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -65,8 +65,9 @@ public class FallingObject : MonoBehaviour {
         {
             dataSend = true;
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             frozen = true;
             baseObject.GetComponent<SpriteRenderer>().sprite = frozenBase;
             GetComponent<SpriteRenderer>().sprite = frozenRock;
@@ -77,18 +78,17 @@ public class FallingObject : MonoBehaviour {
         {
             dataSend = true;
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             baseObject.SetActive(false);
             GetComponent<Rigidbody2D>().gravityScale = 1;
-            gameObject.tag = "Untagged";
-        }
+			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
+		}
 
     }
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 
     void OnBecameInvisible()
@@ -96,9 +96,10 @@ public class FallingObject : MonoBehaviour {
         //metric data set to thrown behind blind guy
         if (transform.position.x < blindGuyTransform.position.x)
         {
-            dataMetric.defeatedTime = Time.time.ToString();
+            dataMetric.defeatedTime = Time.time;
             dataMetric.howItDied = "Telekinesis";
-            dataMetric.saveLocalData();
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }

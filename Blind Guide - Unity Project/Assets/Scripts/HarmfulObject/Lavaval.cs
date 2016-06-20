@@ -29,8 +29,9 @@ public class Lavaval : MonoBehaviour
             spriteRenderer.color = frozenColor;
             colBox.enabled = false;
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
         }
     }
 
@@ -66,6 +67,6 @@ public class Lavaval : MonoBehaviour
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

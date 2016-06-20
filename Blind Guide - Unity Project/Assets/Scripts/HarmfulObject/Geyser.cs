@@ -27,8 +27,9 @@ public class Geyser : MonoBehaviour {
         if (target.gameObject.tag == "IceAttack")
         {
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             frozenState = true;
             spriteRenderer.sprite = frozenSprite;
             colBox.enabled = false;
@@ -41,9 +42,10 @@ public class Geyser : MonoBehaviour {
             {
                 if (target.gameObject.GetComponent<Rollingstones>().thrown)
                 {
-                    dataMetric.howItDied = "Destruction";
-                    dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                    dataMetric.saveLocalData();
+                    dataMetric.howItDied = "Telekinesis";
+                    dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                    DataCollector datacoll = DataCollector.getInstance();
+                    datacoll.createObstacle(dataMetric);
                     frozenState = true;
                     spriteRenderer.sprite = brokenSprite;
                     colBox.enabled = false;
@@ -54,8 +56,9 @@ public class Geyser : MonoBehaviour {
             else if (target.gameObject.name == "FallObject")
             {
                 dataMetric.howItDied = "Destruction";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                DataCollector datacoll = DataCollector.getInstance();
+                datacoll.createObstacle(dataMetric);
                 frozenState = true;
                 spriteRenderer.sprite = brokenSprite;
                 colBox.enabled = false;
@@ -102,6 +105,6 @@ public class Geyser : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

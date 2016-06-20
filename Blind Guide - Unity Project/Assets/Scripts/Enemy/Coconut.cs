@@ -11,8 +11,8 @@ public class Coconut : MonoBehaviour {
         Vector3 targetPos = GameObject.FindWithTag("Blindguy").transform.position + throwOffset;
 		GetComponent<Rigidbody2D>().velocity = new Vector2(((targetPos - transform.position).normalized.x * speed), throwHeight);
         dataMetric.obstacle = DataMetricObstacle.Obstacle.Coconut;
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
-        this.gameObject.layer = 0;
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
+	this.gameObject.layer = 0;
     }
 
     void Update()
@@ -22,21 +22,34 @@ public class Coconut : MonoBehaviour {
         if (timeToLive <= 0)
         {
             dataMetric.howItDied = "Timer";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }
 
     void OnTriggerEnter2D(Collider2D target)
     {
-        if (target.gameObject.tag == "FireAttack") Destroy(gameObject);
+        if (target.gameObject.tag == "FireAttack")
+        {
+            dataMetric.howItDied = "Fire";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
+            Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D col)
     {
-        Destroy(gameObject);
+        if (col.gameObject.tag == "Ground")
+        {
+            dataMetric.howItDied = "Telekinesis";
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            Destroy(gameObject);
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         gameObject.GetComponent<Collider2D>().enabled = false;
+        }
     }
 }

@@ -113,8 +113,7 @@ public class Panther : MonoBehaviour
             if (target.gameObject.tag == "FireAttack")
             {
                 dataMetric.howItDied = "Fire";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
 
                 dead = true;
                 if (!isEndBoss)
@@ -125,8 +124,7 @@ public class Panther : MonoBehaviour
             else if (target.gameObject.tag == "IceAttack")
             {
                 dataMetric.howItDied = "Ice";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
 
                 dead = true;
                 if (!isEndBoss)
@@ -134,6 +132,8 @@ public class Panther : MonoBehaviour
                 GetComponent<Collider2D>().enabled = false;
                 GetComponent<AudioSource>().Stop();
             }
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
         }
     }
 
@@ -155,7 +155,7 @@ public class Panther : MonoBehaviour
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
 
