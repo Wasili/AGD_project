@@ -51,9 +51,8 @@ MonoBehaviour:
   - {fileID: 11485396, guid: 13e2f5ab03bdadd4b9e5ee3b2388158d, type: 2}
   - {fileID: 11408160, guid: 2e08afabd8398374eb99b249ec4d96bb, type: 2}
   destructionObjects:
-  - {fileID: 11426700, guid: cc8d99f4a014a4848bd076c9acff94c6, type: 2}
+  - {fileID: 11406902, guid: ccaf9b651f544f44b973cc3e676eb5bb, type: 2}
   levelDifficulty: 140
-  maxDeathDifficultyInfluence: 50
   segmentWidth: 10
   difficultyOrder: 0100000002000000
 --- !u!1001 &100100000

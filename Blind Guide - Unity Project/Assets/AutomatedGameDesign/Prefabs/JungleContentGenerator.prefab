@@ -25,6 +25,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -16.203516, y: 1.1565818, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -54,10 +55,9 @@ MonoBehaviour:
   - {fileID: 11488166, guid: f9236000cb0aa6847a4a802c180d9a3c, type: 2}
   - {fileID: 11435258, guid: 71687470f16590a41b78a5f9424b896b, type: 2}
   destructionObjects:
-  - {fileID: 11475500, guid: 4d61943aa559f82439205546acc832a7, type: 2}
+  - {fileID: 11458882, guid: 5a9a9d2a0c55de24e939ba5914c71c30, type: 2}
   - {fileID: 11492830, guid: 560b7690e93e35b40a48d0aad36879b3, type: 2}
   levelDifficulty: 240
-  maxDeathDifficultyInfluence: 50
   segmentWidth: 10
   difficultyOrder: 01000000020000000300000002000000
 --- !u!1001 &100100000
