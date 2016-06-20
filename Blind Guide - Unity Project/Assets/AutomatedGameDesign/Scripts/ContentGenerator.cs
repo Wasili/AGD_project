@@ -54,10 +54,10 @@ public class ContentGenerator : MonoBehaviour {
 
         DataCollector datacoll = DataCollector.getInstance();
         DataMetricLevel prevLevel = datacoll.getLastLevel();
-        powerData[0].usage = 5;//prevLevel.qtyFireAttacks;
-        powerData[1].usage = 4;//prevLevel.qtyIceAttacks;
-        powerData[2].usage = 4;//prevLevel.qtyFireAttacks;
-        powerData[3].usage = 4;//prevLevel.qtyFireAttacks;
+        powerData[0].usage = prevLevel.qtyFireAttacks;
+        powerData[1].usage = prevLevel.qtyIceAttacks;
+        powerData[2].usage = prevLevel.qtyFireAttacks;
+        powerData[3].usage = prevLevel.qtyFireAttacks;
 
         playerDeaths = 0; // datacoll.playerDeadsInLevel(DataMetricLevel.Levels.);
 	}
