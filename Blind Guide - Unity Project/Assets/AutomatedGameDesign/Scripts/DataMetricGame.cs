@@ -1,33 +1,69 @@
 ﻿using UnityEngine;
+using System; 
 using System.Collections;
+using System.Collections.Generic;
 
+[Serializable]
 public class DataMetricGame : DataMetric
 {
-    public enum Level { Tutorial, Fire1, Fire2, Fire3, Ice1, Ice2, Ice3, Jungle1, Jungle2, Jungle3 }
-
+    [SerializeField]
     public int session;
-    public string starttime;
-    public string endTime;
-    public Level level;
-    public int playerDied;
-    public string howPlayerDied;
+    [SerializeField]
+    public DateTime starttime;
+    [SerializeField]
+    public float endTime;
+    [SerializeField]
+    private List<DataMetricLevel> levels = new List<DataMetricLevel>();
 
-    public override void saveLocalData()
+    public DataMetricGame()
     {
-        queryForSave = "INSERT INTO game(Session, StartTime, EndTime, Level, PlayerDied, HowPlayerDied) VALUES("
-            + "'" + session + "'" + ","
-            + "'" + starttime + "'" + ","
-            + "'" + endTime + "'" + ","
-            + "'" + level.ToString() + "'" + ","
-            + "'" + playerDied + "'" + ","
-            + "'" + howPlayerDied + "'"
-            + ")";
-        DataCollector.getInstance().saveMetric(this);
+        //Debug.Log("Created game...");
     }
 
-    public override string[] loadLocalData()
+    public void addLevel(DataMetricLevel level)
     {
-        queryforLoad = "";
-        return null;
+        Debug.Log("Added level...");
+        levels.Add(level);
     }
+
+    public int playerDeadsInLevel(DataMetricLevel.Levels levelKind)
+    {
+        int qty = 0; 
+        foreach(DataMetricLevel level in levels)
+        {
+            if(level.level == levelKind)
+            {
+                qty++;
+            }
+        } 
+        return qty; 
+    }
+
+    public DataMetricLevel getLastLevel()
+    {
+        if (levels.Count > 0)
+        {
+            return levels[levels.Count - 1];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    //public override void saveLocalData()
+    //{
+    //    queryForSave = "INSERT INTO game(Session, StartTime, EndTime) VALUES("
+    //        + "'" + session + "'" + ","
+    //        + "'" + starttime + "'" + ","
+    //        + "'" + endTime + "'"
+    //        + ")";
+    //    DataCollector.getInstance().saveMetric(this);
+    //}
+
+    //public override string[] loadLocalData()
+    //{
+    //    queryforLoad = "";
+    //    return null;
+    //}
 }

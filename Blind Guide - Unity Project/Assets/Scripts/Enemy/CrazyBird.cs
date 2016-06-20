@@ -4,7 +4,7 @@ using System.Collections;
 public class CrazyBird : MonoBehaviour
 {
 
-    enum State { idle, attacking, dead };
+    /*enum State { idle, attacking, dead };
     State curState;
 
     public float reactionDistance = 20f, speed = 5f, animationSpeed = 0.5f;
@@ -101,7 +101,7 @@ public class CrazyBird : MonoBehaviour
         {
             curState = State.dead;
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             dataMetric.saveLocalData();
         }
 
@@ -109,7 +109,7 @@ public class CrazyBird : MonoBehaviour
         {
             curState = State.dead;
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             dataMetric.saveLocalData();
         }
     }
@@ -123,5 +123,5 @@ public class CrazyBird : MonoBehaviour
     void OnBecameVisible()
     {
         dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
-    }
+    }*/
 }

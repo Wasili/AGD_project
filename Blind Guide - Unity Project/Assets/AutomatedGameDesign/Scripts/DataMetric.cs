@@ -13,9 +13,9 @@ public abstract class DataMetric
     public string details { get; protected set; }
     public MetricValue[] values { get; protected set; }
 
-    public string queryForSave { get; protected set; }
-    public string queryforLoad { get; protected set; }
+    //public string queryForSave { get; protected set; }
+    //public string queryforLoad { get; protected set; }
 
-    public abstract void saveLocalData();
-    public abstract string[] loadLocalData();
+    //public abstract void saveLocalData();
+    //public abstract string[] loadLocalData();
 }

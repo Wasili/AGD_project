@@ -52,8 +52,7 @@ public class Snake : MonoBehaviour
             if (target.gameObject.tag == "IceAttack")
             {
                 dataMetric.howItDied = "Ice";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
                 dead = true;
                 spriteRenderer.sprite = frozen;
                 GetComponent<Collider2D>().enabled = false;
@@ -61,12 +60,13 @@ public class Snake : MonoBehaviour
             else if (target.gameObject.tag == "FireAttack")
             {
                 dataMetric.howItDied = "Fire";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
                 dead = true;
                 spriteRenderer.sprite = burnt;
                 GetComponent<Collider2D>().enabled = false;
             }
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
         }
     }
 
@@ -97,6 +97,6 @@ public class Snake : MonoBehaviour
     
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

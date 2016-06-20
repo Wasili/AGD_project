@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &193288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 424362}
+  - 114: {fileID: 11430806}
+  m_Layer: 0
+  m_Name: IceContentGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &424362
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.203516, y: 1.1565818, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11430806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 193288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7429208e3f70841a8ae0fb35176b90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fireObjects:
+  - {fileID: 11415292, guid: 9351b274583aac94ca681faf3f3a5004, type: 2}
+  - {fileID: 11408160, guid: 2e08afabd8398374eb99b249ec4d96bb, type: 2}
+  - {fileID: 11478360, guid: caac12915b1f7234abdbabc34586f379, type: 2}
+  iceObjects:
+  - {fileID: 11426700, guid: cc8d99f4a014a4848bd076c9acff94c6, type: 2}
+  telekinesisObjects:
+  - {fileID: 11416876, guid: 61683baddc0916e48913dcaf3b78fe04, type: 2}
+  - {fileID: 11485396, guid: 13e2f5ab03bdadd4b9e5ee3b2388158d, type: 2}
+  - {fileID: 11408160, guid: 2e08afabd8398374eb99b249ec4d96bb, type: 2}
+  destructionObjects:
+  - {fileID: 11426700, guid: cc8d99f4a014a4848bd076c9acff94c6, type: 2}
+  levelDifficulty: 140
+  maxDeathDifficultyInfluence: 50
+  segmentWidth: 10
+  difficultyOrder: 0100000002000000
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 193288}
+  m_IsPrefabParent: 1
