@@ -11,7 +11,7 @@ public class OnCloseApplication : MonoBehaviour {
 
     void save()
     {
-        //DataCollector datacoll = DataCollector.getInstance();
-        //StartCoroutine(datacoll.Upload(datacoll.getJSSONString()));
+        DataCollector datacoll = DataCollector.getInstance();
+        StartCoroutine(datacoll.Upload(datacoll.getJSSONString()));
     }
 }

@@ -26,17 +26,17 @@ public class DataCollector {
 
     public IEnumerator Upload(string data)
     {
-        byte[] myData = System.Text.Encoding.UTF8.GetBytes(data);
-        UnityWebRequest www = UnityWebRequest.Post("http://agd.vdmastnet.nl/api.php", data);
-        yield return www.Send();
+        WWWForm postForm = new WWWForm();
+        postForm.AddField('json', data);
 
-        if (www.isError)
+        WWW api = new WWW("http://agd.vdmastnet.nl/api.php",postForm);
+        
+        
+        yield return api;
+
+        if (!string.IsNullOrEmpty(api.error))
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Upload complete!");
+            Debug.Log(api.error);
         }
     }
 
