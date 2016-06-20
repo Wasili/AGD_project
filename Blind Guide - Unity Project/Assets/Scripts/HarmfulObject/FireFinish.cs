@@ -48,8 +48,9 @@ public class FireFinish : MonoBehaviour {
             if (burning)
             {
                 dataMetric.howItDied = "Ice";
-                dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-                dataMetric.saveLocalData();
+                dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+                DataCollector datacoll = DataCollector.getInstance();
+                datacoll.createObstacle(dataMetric);
                 burning = false;
                 GetComponent<AudioSource>().Stop();
             }
@@ -62,6 +63,6 @@ public class FireFinish : MonoBehaviour {
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }

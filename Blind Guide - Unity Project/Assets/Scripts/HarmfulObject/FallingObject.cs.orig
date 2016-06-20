@@ -2,9 +2,8 @@
 using System.Collections;
 
 public class FallingObject : MonoBehaviour {
-    Transform blindGuyTransform;
     GameObject blindGuy;
-    bool falling = false;
+    bool falling;
     public float reactionDistance, rotationSpeed, maxAngle;
     public GameObject baseObject;
     public Sprite frozenBase, frozenRock;
@@ -14,17 +13,15 @@ public class FallingObject : MonoBehaviour {
     DataMetricObstacle dataMetric = new DataMetricObstacle();
     bool dataSend = false;
 
-
-    void Start()
+    void Start () 
     {
         blindGuy = GameObject.FindWithTag("Blindguy");
         rotation = -rotationSpeed;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         dataMetric.obstacle = DataMetricObstacle.Obstacle.FallingRock;
-        blindGuyTransform = GameObject.FindWithTag("Blindguy").transform;
     }
-
-    void Update()
+	
+	void Update () 
     {
         if (frozen)
             return;
@@ -36,7 +33,6 @@ public class FallingObject : MonoBehaviour {
         {
             baseObject.SetActive(false);
             GetComponent<Rigidbody2D>().gravityScale = 1;
-			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
         }
 
         timer += rotation * Time.deltaTime;
@@ -57,7 +53,23 @@ public class FallingObject : MonoBehaviour {
         {
             transform.Rotate(new Vector3(0, 0, rotation * Time.deltaTime));
         }
-    }
+
+        /*if (blindGuy.transform.position.x > transform.position.x)
+        {
+            dataMetric.howItDied = "Telekinesis";
+<<<<<<< 029ee322bc4fcf5be319341036db4b75f9c4f51f
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
+            if(!dataSend)
+            {
+                dataMetric.saveLocalData();
+                dataSend = true;
+            }
+        }*/
+=======
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+        }
+>>>>>>> forgot to commit some files
+	}
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -66,41 +78,15 @@ public class FallingObject : MonoBehaviour {
             dataSend = true;
             dataMetric.howItDied = "Ice";
             dataMetric.defeatedTime = Time.timeSinceLevelLoad;
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
             frozen = true;
             baseObject.GetComponent<SpriteRenderer>().sprite = frozenBase;
             GetComponent<SpriteRenderer>().sprite = frozenRock;
             gameObject.tag = "Untagged";
         }
-
-        if (col.gameObject.tag == "FireAttack" && GetComponent<Rigidbody2D>().gravityScale <= 0)
-        {
-            dataSend = true;
-            dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
-            baseObject.SetActive(false);
-            GetComponent<Rigidbody2D>().gravityScale = 1;
-			GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
-		}
-
     }
 
     void OnBecameVisible()
     {
         dataMetric.spawnTime = Time.timeSinceLevelLoad;
-    }
-
-    void OnBecameInvisible()
-    {
-        //metric data set to thrown behind blind guy
-        if (transform.position.x < blindGuyTransform.position.x)
-        {
-            dataMetric.defeatedTime = Time.time;
-            dataMetric.howItDied = "Telekinesis";
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
-            Destroy(gameObject);
-        }
     }
 }

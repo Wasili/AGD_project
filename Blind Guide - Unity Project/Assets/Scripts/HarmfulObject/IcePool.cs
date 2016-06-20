@@ -31,10 +31,11 @@ public class IcePool : MonoBehaviour {
         if (col.gameObject.tag == "FireAttack" && frozen)
         {
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             gameObject.tag = "Untagged";
             frozen = false;
         }
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.createObstacle(dataMetric);
     }
 }

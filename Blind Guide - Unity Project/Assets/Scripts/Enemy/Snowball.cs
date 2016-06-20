@@ -15,7 +15,7 @@ public class Snowball : MonoBehaviour
         GetComponent<Rigidbody2D>().velocity = (blindTransform.position - transform.position).normalized * speed;
         GetComponent<Rigidbody2D>().velocity += new Vector2(0, upwardSpeed);
         dataMetric.obstacle = DataMetricObstacle.Obstacle.SnowBall;
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 
     void Update()
@@ -29,8 +29,9 @@ public class Snowball : MonoBehaviour
         if (col.gameObject.tag == "FireAttack")
         {
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }
@@ -45,8 +46,9 @@ public class Snowball : MonoBehaviour
         if (col.gameObject.tag == "Ground")
         {
             dataMetric.howItDied = "Telekinesis";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
         }
     }
