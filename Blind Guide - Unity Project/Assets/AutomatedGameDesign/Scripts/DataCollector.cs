@@ -35,7 +35,7 @@ public class DataCollector {
 
         if (!string.IsNullOrEmpty(api.error))
         {
-            Debug.Log(api.error);
+            //Debug.Log(api.error);
         }
     }
 

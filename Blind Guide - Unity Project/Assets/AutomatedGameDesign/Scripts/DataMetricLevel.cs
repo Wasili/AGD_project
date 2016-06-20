@@ -39,7 +39,6 @@ public class DataMetricLevel : DataMetric {
 
     public void addAttack(DataMetricAttack attack)
     {
-        Debug.Log("added attack...");
         attacks.Add(attack);
     }
 
