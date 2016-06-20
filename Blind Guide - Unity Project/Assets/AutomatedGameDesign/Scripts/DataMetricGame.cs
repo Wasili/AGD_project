@@ -17,12 +17,14 @@ public class DataMetricGame : DataMetric
 
     public DataMetricGame()
     {
+        System.Random rand = new System.Random(); 
+        session = rand.Next(0, int.MaxValue);
         //Debug.Log("Created game...");
     }
 
     public void addLevel(DataMetricLevel level)
     {
-        Debug.Log("Added level...");
+        //Debug.Log("Added level...");
         levels.Add(level);
     }
 
@@ -49,6 +51,11 @@ public class DataMetricGame : DataMetric
         {
             return null;
         }
+    }
+
+    public void saveLastLevel(DataMetricLevel level)
+    {
+        levels[levels.Count - 1] = level; 
     }
 
     //public override void saveLocalData()

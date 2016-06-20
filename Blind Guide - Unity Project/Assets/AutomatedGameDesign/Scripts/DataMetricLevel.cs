@@ -70,14 +70,14 @@ public class DataMetricLevel : DataMetric {
 
     public void addObstacle(DataMetricObstacle obstacle)
     {
-        Debug.Log("Added obstacle...");
+        //Debug.Log("Added obstacle...");
         obstacles.Add(obstacle);
         getQtyOfAttacks();
     }
 
     public void addRating(DataMetricRating rateReceive)
     {
-        Debug.Log("Adding rating...");
+        //Debug.Log("Adding rating...");
         rate = rateReceive;
     }
 

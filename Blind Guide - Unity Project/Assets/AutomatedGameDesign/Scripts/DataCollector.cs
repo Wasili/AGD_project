@@ -27,10 +27,9 @@ public class DataCollector {
     public IEnumerator Upload(string data)
     {
         WWWForm postForm = new WWWForm();
-        postForm.AddField('json', data);
+        postForm.AddField("json", data);
 
-        WWW api = new WWW("http://agd.vdmastnet.nl/api.php",postForm);
-        
+        WWW api = new WWW("http://agd.vdmastnet.nl/api.php", postForm);
         
         yield return api;
 
@@ -57,7 +56,7 @@ public class DataCollector {
             _currGame = new DataMetricGame();
             _currGame.starttime = System.DateTime.Now;
             _currGame.session = gameSession;
-            Debug.Log("Created game...");
+            //Debug.Log("Created game...");
         }
     }
 
@@ -66,8 +65,9 @@ public class DataCollector {
         createGame();
         if (_currLevel == null)
         {
-            Debug.Log("Creating level...");
+            //Debug.Log("Creating level...");
             _currLevel = new DataMetricLevel();
+            _currLevel.level = level; 
             _currLevel.startTime = DateTime.Now;
         }
     }
@@ -114,6 +114,7 @@ public class DataCollector {
     {
         DataMetricLevel lastLevel = getLastLevel();
         lastLevel.addRating(rate);
+        _currGame.saveLastLevel(lastLevel);
     }
 
     public DataMetricLevel getLastLevel()
