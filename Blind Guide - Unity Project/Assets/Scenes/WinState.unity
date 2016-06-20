@@ -1347,10 +1347,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.8
-  m_Text: 'How much did you enjoy the level?
+  m_Text: 'How much did you enjoy this level?
 
 
-    How difficult the level was?'
+    How difficult was this level?'
 --- !u!222 &1467342322
 CanvasRenderer:
   m_ObjectHideFlags: 0

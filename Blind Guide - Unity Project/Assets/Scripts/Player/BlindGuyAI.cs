@@ -67,8 +67,7 @@ public class BlindGuyAI : MonoBehaviour {
         {
             DataCollector inst = DataCollector.getInstance();
             inst.endLevel(false);
-
-            // Debug.Log(SceneManager.GetActiveScene().name);
+			
             if (SceneManager.GetActiveScene().name == "Level10")
             {
                 SceneManager.LoadScene("PostGameScene");
