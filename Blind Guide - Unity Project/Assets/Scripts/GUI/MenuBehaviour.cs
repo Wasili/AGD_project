@@ -23,8 +23,7 @@ public class MenuBehaviour : MonoBehaviour {
 
     Color originalColor = new Color(255, 255, 255);
     Color changedColor = new Color(36, 36, 36);
-
-    bool nextLevel = false;
+    
     int countVotes = 0;
 
 	void Start() 
@@ -144,13 +143,11 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void NextLevel()
     {
-        if (nextLevel) {
-            int nextLevelNumber = GetNextLevel();
-            if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
-                Application.LoadLevel("Level" + nextLevelNumber);
-            else
-                Application.LoadLevel("CreditScreen");
-        }
+        int nextLevelNumber = GetNextLevel();
+        if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
+            Application.LoadLevel("Level" + nextLevelNumber);
+        else
+            Application.LoadLevel("CreditScreen");
     }
 
     public void SaveProgress()

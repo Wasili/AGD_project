@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class LevelButtonCheck : MonoBehaviour {
     int count = 0;
 
-    DataMetricRating dataMetric;
+    DataMetricRating dataMetric = new DataMetricRating();
     public VoteHandler difficulty, enjoyment;
 	void Start () {
         GetComponent<Button>().interactable = false;
