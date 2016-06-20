@@ -110,10 +110,12 @@ public class DataCollector {
         }
     }
     
-    public void createRates(DataMetricRating rate)
+    public void createRates(int difficulty, int fun) // DataMetricRating rate
     {
         DataMetricLevel lastLevel = getLastLevel();
-        lastLevel.addRating(rate);
+        //lastLevel.addRating(fun);
+        lastLevel.funRating = fun;
+        lastLevel.difficultyRating = difficulty; 
         _currGame.saveLastLevel(lastLevel);
     }
 

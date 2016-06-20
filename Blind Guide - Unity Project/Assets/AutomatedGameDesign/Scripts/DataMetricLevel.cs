@@ -24,7 +24,11 @@ public class DataMetricLevel : DataMetric {
     [SerializeField]
     private List<DataMetricAttack> attacks = new List<DataMetricAttack>();
 
-    private DataMetricRating rate;
+    [SerializeField]
+    public int funRating;
+    [SerializeField]
+    public int difficultyRating;
+    //private DataMetricRating rate;
 
     public int qtyFireAttacks { get; private set; }
     public int qtyIceAttacks { get; private set; }
@@ -39,7 +43,7 @@ public class DataMetricLevel : DataMetric {
 
     public void addAttack(DataMetricAttack attack)
     {
-        Debug.Log("added attack...");
+        //Debug.Log("added attack...");
         attacks.Add(attack);
     }
 
@@ -75,11 +79,11 @@ public class DataMetricLevel : DataMetric {
         getQtyOfAttacks();
     }
 
-    public void addRating(DataMetricRating rateReceive)
-    {
-        //Debug.Log("Adding rating...");
-        rate = rateReceive;
-    }
+    //public void addRating(DataMetricRating rateReceive)
+    //{
+    //    //Debug.Log("Adding rating...");
+    //    rate = rateReceive;
+    //}
 
     //public override void saveLocalData()
     //{

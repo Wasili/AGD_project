@@ -22,12 +22,11 @@ public class LevelButtonCheck : MonoBehaviour {
 
     public void SendVote()
     {
-        dataMetric.difficulty = difficulty.vote;
-        dataMetric.fun = enjoyment.vote;
+        //dataMetric.difficulty = difficulty.vote;
+        //dataMetric.fun = enjoyment.vote;
        // Debug.Log(difficulty.vote);
         //Debug.Log(enjoyment.vote);
         DataCollector datacoll = DataCollector.getInstance();
-        dataMetric.level = (int) datacoll.getLastLevel().level;
-        datacoll.createRates(dataMetric);
+        datacoll.createRates(difficulty.vote, enjoyment.vote);
     }
 }
