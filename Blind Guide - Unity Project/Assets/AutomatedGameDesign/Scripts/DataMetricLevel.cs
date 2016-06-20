@@ -3,18 +3,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic; 
 
+[Serializable]
 public class DataMetricLevel : DataMetric {
     
-    public enum Level { Tutorial, Fire1, Fire2, Fire3, Ice1, Ice2, Ice3, Jungle1, Jungle2, Jungle3 }
+    public enum Levels { Tutorial, Fire1, Fire2, Fire3, Ice1, Ice2, Ice3, Jungle1, Jungle2, Jungle3 }
 
     private int id;
-    public int levelID;
+    [SerializeField]
+    public DataMetricLevel.Levels level;
+    [SerializeField]
     public DateTime startTime;
+    [SerializeField]
     public float endTime;
+    [SerializeField]
     public int playerDied;
+    [SerializeField]
     public string howPlayerDied;
+    [SerializeField]
     private List<DataMetricObstacle> obstacles = new List<DataMetricObstacle>();
+    [SerializeField]
     private List<DataMetricAttack> attacks = new List<DataMetricAttack>();
+
     public int qtyFireAttacks { get; private set; }
     public int qtyIceAttacks { get; private set; }
     public int qtyTelekinesisAttacks { get; private set; }

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using Mono.Data.Sqlite;
 using System.Data;
-using System.Collections.Generic;
+using System.Collections;
 using System;
+using UnityEngine.Experimental.Networking;
 
-public class DataCollector {
+public class DataCollector : MonoBehaviour {
     private static DataCollector _instance;
     private int gameID;
     private int gameSession;
@@ -18,6 +19,29 @@ public class DataCollector {
     {
         //dbConnection = (IDbConnection)new SqliteConnection(_constr);
         //dbConnection.Open();
+    }
+
+    public void save()
+    {
+        string data = JsonUtility.ToJson(_currGame);
+
+        StartCoroutine(Upload(data));
+    }
+
+    IEnumerator Upload(string data)
+    {
+        byte[] myData = System.Text.Encoding.UTF8.GetBytes(data);
+        UnityWebRequest www = UnityWebRequest.Put("http://agd.vdmastnet.nl/api.php", myData);
+        yield return www.Send();
+
+        if (www.isError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Upload complete!");
+        }
     }
 
     public static DataCollector getInstance()
@@ -41,7 +65,7 @@ public class DataCollector {
         }
     }
 
-    public void startLevel(DataMetricLevel.Level level)
+    public void startLevel(DataMetricLevel.Levels level)
     {
         createGame();
         if (_currLevel == null)
@@ -67,6 +91,11 @@ public class DataCollector {
             _currGame.addLevel(_currLevel);
             _currLevel = null;
         }
+    }
+
+    public int playerDeadsInLevel(DataMetricLevel.Levels levelKind)
+    {
+        return _currGame.playerDeadsInLevel(levelKind); 
     }
 
     public void createObstacle(DataMetricObstacle obstacle)

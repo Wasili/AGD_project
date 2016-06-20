@@ -1,17 +1,21 @@
 ﻿using System;
 using UnityEngine;
 
+[Serializable]
 public class DataMetricObstacle : DataMetric
 {
     public enum Obstacle { Monkey, FlyingEnemy, Lavaman,
         Panther, Snake, Snowman, FallingRock, FireFinish, Geyser, EndBoss,
         IcePool, Icicle, Lavafall, RollingBoulder, RollingBoulderSurprise, Coconut, LavaBall, SnowBall }
 
+    [SerializeField]
     public Obstacle obstacle;
+    [SerializeField]
     public float spawnTime;
+    [SerializeField]
     public float defeatedTime;
+    [SerializeField]
     public string howItDied;
-    public int levelID;
 
     //public override void saveLocalData()
     //{

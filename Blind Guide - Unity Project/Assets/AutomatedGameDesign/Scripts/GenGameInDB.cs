@@ -5,13 +5,19 @@ public class GenGameInDB : MonoBehaviour {
 
     private DataCollector inst;
 
-    public DataMetricLevel.Level level; 
+    public DataMetricLevel.Levels level; 
 
     void Awake()
     {
         inst = DataCollector.getInstance();
 
         inst.createGame();
-        inst.startLevel(level); 
+        inst.startLevel(level);
+    }
+
+    void OnApplicationQuit()
+    {
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.save();
     }
 }

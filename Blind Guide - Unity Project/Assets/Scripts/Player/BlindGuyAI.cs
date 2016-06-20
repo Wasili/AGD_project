@@ -32,7 +32,7 @@ public class BlindGuyAI : MonoBehaviour {
     {
         // dataMetric.level = GameObject.FindWithTag("level");
         DataCollector inst = DataCollector.getInstance();
-        inst.startLevel((DataMetricLevel.Level) Application.loadedLevel);
+        inst.startLevel((DataMetricLevel.Levels) Application.loadedLevel);
         frameTimer = animationTime;
         regularSpeed = speed;
     }

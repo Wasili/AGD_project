@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
+[Serializable]
 public class DataMetricAttack : DataMetric
 {
     public enum Type { Fire, Ice, Telekinesis, Destruction }
 
+    [SerializeField]
     public float attackTime;
+    [SerializeField]
     public Type type;
 
     //public override void saveLocalData()
