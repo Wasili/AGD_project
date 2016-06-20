@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ContentGenerator : MonoBehaviour {
+    
 	struct PowerUsage {
 		public DataMetricAttack.Type type;
 		public int usage;
@@ -50,13 +51,15 @@ public class ContentGenerator : MonoBehaviour {
 		powerData[1].type = DataMetricAttack.Type.Ice;
 		powerData[2].type = DataMetricAttack.Type.Telekinesis;
 		powerData[3].type = DataMetricAttack.Type.Destruction;
-		//TODO: read player data from database
-		powerData[0].usage = 9;
-		powerData[1].usage = 6;
-		powerData[2].usage = 7;
-		powerData[3].usage = 2;
 
-		playerDeaths = 10;
+        DataCollector datacoll = DataCollector.getInstance();
+        DataMetricLevel prevLevel = datacoll.getLastLevel(); 
+		powerData[0].usage = prevLevel.qtyFireAttacks;
+		powerData[1].usage = prevLevel.qtyIceAttacks;
+        powerData[2].usage = prevLevel.qtyFireAttacks;
+        powerData[3].usage = prevLevel.qtyFireAttacks;
+
+        playerDeaths = 0; // datacoll.playerDeadsInLevel(DataMetricLevel.Levels.);
 	}
 
 	void CalculateTypePercentages() {

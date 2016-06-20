@@ -18,6 +18,5 @@ public class GenGameInDB : MonoBehaviour {
     void OnApplicationQuit()
     {
         DataCollector datacoll = DataCollector.getInstance();
-        datacoll.save();
     }
 }

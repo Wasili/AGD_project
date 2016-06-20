@@ -1700,7 +1700,7 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 74a04e89a3f3bbd4d900dd2a862881fb, type: 2}
   m_PrefabInternal: {fileID: 198317878}
---- !u!1001 &1320996941
+--- !u!1001 &1299827157
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1737,7 +1737,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 460712, guid: 23cf73cdaba04124dbb88d07ea6437c3, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11426052, guid: 23cf73cdaba04124dbb88d07ea6437c3, type: 2}
       propertyPath: level
@@ -2051,10 +2051,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1704835560}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba9e0ce3ac3e05c4eb07a3703f895a00, type: 3}
+  m_Script: {fileID: 11500000, guid: ce0b738edd7897a4c902704b47de785e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 1
 --- !u!1001 &1863228945
 Prefab:
   m_ObjectHideFlags: 0
@@ -2064,7 +2063,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: d868bb1903c93a34eba9ef681aac8cb9, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 80.24
+      value: 85.7
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d868bb1903c93a34eba9ef681aac8cb9, type: 2}
       propertyPath: m_LocalPosition.y

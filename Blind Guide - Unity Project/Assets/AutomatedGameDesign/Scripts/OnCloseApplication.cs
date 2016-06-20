@@ -6,6 +6,12 @@ public class OnCloseApplication : MonoBehaviour {
     void OnApplicationQuit()
     {
         DataCollector datacoll = DataCollector.getInstance();
-        datacoll.save();
+        save();
+    }
+
+    void save()
+    {
+        //DataCollector datacoll = DataCollector.getInstance();
+        //StartCoroutine(datacoll.Upload(datacoll.getJSSONString()));
     }
 }

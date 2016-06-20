@@ -19,17 +19,15 @@ public class DataCollector {
         //dbConnection.Open();
     }
 
-    public void save()
+    public string getJSSONString()
     {
-        string data = JsonUtility.ToJson(_currGame);
-
-        Upload(data);
+        return JsonUtility.ToJson(_currGame);
     }
 
-    IEnumerator Upload(string data)
+    public IEnumerator Upload(string data)
     {
         byte[] myData = System.Text.Encoding.UTF8.GetBytes(data);
-        UnityWebRequest www = UnityWebRequest.Put("http://agd.vdmastnet.nl/api.php", myData);
+        UnityWebRequest www = UnityWebRequest.Post("http://agd.vdmastnet.nl/api.php", data);
         yield return www.Send();
 
         if (www.isError)
@@ -110,6 +108,12 @@ public class DataCollector {
         {
             _currLevel.addAttack(attack);
         }
+    }
+    
+    public void createRates(DataMetricRating rate)
+    {
+        DataMetricLevel lastLevel = getLastLevel();
+        lastLevel.addRating(rate);
     }
 
     public DataMetricLevel getLastLevel()
