@@ -111,6 +111,12 @@ public class DataCollector {
             _currLevel.addAttack(attack);
         }
     }
+    
+    public void createRates(DataMetricRating rate)
+    {
+        DataMetricLevel lastLevel = getLastLevel();
+        lastLevel.addRating(rate);
+    }
 
     public DataMetricLevel getLastLevel()
     {
