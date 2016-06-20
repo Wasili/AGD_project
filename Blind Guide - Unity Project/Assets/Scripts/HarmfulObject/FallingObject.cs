@@ -91,16 +91,16 @@ public class FallingObject : MonoBehaviour {
         dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 
-    void OnBecameInvisible()
-    {
-        //metric data set to thrown behind blind guy
-        if (transform.position.x < blindGuyTransform.position.x)
-        {
-            dataMetric.defeatedTime = Time.time;
-            dataMetric.howItDied = "Telekinesis";
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
-            Destroy(gameObject);
-        }
-    }
+	void OnBecameInvisible() {
+		//metric data set to thrown behind blind guy
+		if (transform != null && blindGuyTransform != null) {
+			if (transform.position.x < blindGuyTransform.position.x) {
+				dataMetric.defeatedTime = Time.time;
+				dataMetric.howItDied = "Telekinesis";
+				DataCollector datacoll = DataCollector.getInstance();
+				datacoll.createObstacle(dataMetric);
+				Destroy(gameObject);
+			}
+		}
+	}
 }
