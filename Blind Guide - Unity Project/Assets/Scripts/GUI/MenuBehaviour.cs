@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MenuBehaviour : MonoBehaviour {
@@ -21,6 +20,12 @@ public class MenuBehaviour : MonoBehaviour {
     float pauseScreenFadeSpeed;
     Color pauseBackgroundColor;
     string pauseButtonName = "Pause";
+
+    Color originalColor = new Color(255, 255, 255);
+    Color changedColor = new Color(36, 36, 36);
+
+    bool nextLevel = false;
+    int countVotes = 0;
 
 	void Start() 
     {
@@ -91,7 +96,7 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadLastPlayedLevel()
     {
-        SceneManager.LoadScene(lastPlayedLevel);
+        Application.LoadLevel(lastPlayedLevel);
     }
 
     public void ActivateMenu(int menuItem)
@@ -104,7 +109,7 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadMain()
     {
-        SceneManager.LoadScene("MainMenu");
+        Application.LoadLevel("MainMenu");
     }
 
     public void QuitGame()
@@ -117,12 +122,12 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void LoadLevel(string levelToLoad)
     {
-        SceneManager.LoadScene(levelToLoad);
+        Application.LoadLevel(levelToLoad);
     }
 
     public void ReloadLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().ToString());
+        Application.LoadLevel(Application.loadedLevel);
     }
 
     public void PauseGame()
@@ -139,11 +144,13 @@ public class MenuBehaviour : MonoBehaviour {
 
     public void NextLevel()
     {
-        int nextLevelNumber = GetNextLevel();
-        if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
-            SceneManager.LoadScene("Level" + nextLevelNumber);
-        else
-            SceneManager.LoadScene("CreditScreen");
+        if (nextLevel) {
+            int nextLevelNumber = GetNextLevel();
+            if (Application.CanStreamedLevelBeLoaded("Level" + nextLevelNumber))
+                Application.LoadLevel("Level" + nextLevelNumber);
+            else
+                Application.LoadLevel("CreditScreen");
+        }
     }
 
     public void SaveProgress()
@@ -179,6 +186,19 @@ public class MenuBehaviour : MonoBehaviour {
     void ResetLevelProgress()
     {
         PlayerPrefs.SetInt("LastUnlockedLevel", 1);
+    }
+
+    public void VoteStar()
+    {
+        /*ColorBlock colorBlock = GetComponent<Button>.colors;
+        GetComponent<Button>().colors = Color.black;
+        countVotes++;
+        if (countVotes == 2)
+        {
+            nextLevel = true;
+
+        }*/
+
     }
 
     public void ActivateCurrentItem()
