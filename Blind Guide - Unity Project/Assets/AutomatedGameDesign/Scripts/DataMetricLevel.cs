@@ -28,6 +28,13 @@ public class DataMetricLevel : DataMetric {
     public int qtyIceAttacks { get; private set; }
     public int qtyTelekinesisAttacks { get; private set; }
 
+    public DataMetricLevel()
+    {
+        qtyFireAttacks = 0;
+        qtyIceAttacks = 0;
+        qtyTelekinesisAttacks = 0;
+    }
+
     public void addAttack(DataMetricAttack attack)
     {
         Debug.Log("added attack...");
