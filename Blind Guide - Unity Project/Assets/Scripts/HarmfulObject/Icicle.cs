@@ -70,8 +70,7 @@ public class Icicle : MonoBehaviour {
         {
             dataSend = true;
             dataMetric.howItDied = "Fire";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             //if (isSpecial)
             //{
             myShatters = ((GameObject)Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
@@ -89,8 +88,7 @@ public class Icicle : MonoBehaviour {
 
             dataSend = true;
             dataMetric.howItDied = "Ice";
-            dataMetric.defeatedTime = Time.timeSinceLevelLoad.ToString();
-            dataMetric.saveLocalData();
+            dataMetric.defeatedTime = Time.timeSinceLevelLoad;
             if (isSpecial)
             {
                 canBeMelted = true;
@@ -104,8 +102,8 @@ public class Icicle : MonoBehaviour {
             GetComponent<SpriteRenderer>().color = Color.white;
         }
 
-
-
+        DataCollector datacoll = DataCollector.getInstance();
+        datacoll.createObstacle(dataMetric); 
     }
 
     void OnDrawGizmosSelected()
@@ -129,9 +127,10 @@ public class Icicle : MonoBehaviour {
 
             else myShatters = ((GameObject)Instantiate(IcicleShattered, transform.position, transform.rotation)).transform;
 
-            dataMetric.defeatedTime = Time.time.ToString();
+            dataMetric.defeatedTime = Time.time;
             dataMetric.howItDied = "Telekinesis";
-            dataMetric.saveLocalData();
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
             Destroy(gameObject);
 
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
@@ -153,21 +152,19 @@ public class Icicle : MonoBehaviour {
 		}
 		catch(MissingComponentException e) {
 
-		}
-
-		//metric data set to thrown behind blind guy
-		if (transform != null && blindGuyTransform != null) {
-			if (transform.position.x < blindGuyTransform.position.x) {
-				dataMetric.defeatedTime = Time.time.ToString();
-				dataMetric.howItDied = "Telekinesis";
-				dataMetric.saveLocalData();
-				Destroy(gameObject);
-			}
-		}
+        //metric data set to thrown behind blind guy
+        if (transform.position.x < blindGuyTransform.position.x)
+        {
+            dataMetric.defeatedTime = Time.time;
+            dataMetric.howItDied = "Telekinesis";
+            DataCollector datacoll = DataCollector.getInstance();
+            datacoll.createObstacle(dataMetric);
+            Destroy(gameObject);
+        }
     }
 
     void OnBecameVisible()
     {
-        dataMetric.spawnTime = Time.timeSinceLevelLoad.ToString();
+        dataMetric.spawnTime = Time.timeSinceLevelLoad;
     }
 }
