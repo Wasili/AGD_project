@@ -150,17 +150,18 @@ public class Icicle : MonoBehaviour {
 		try {
 			GetComponent<AudioSource>().Stop();
 		}
-		catch(MissingComponentException e) {
+		catch (MissingComponentException e) { }
 
-        //metric data set to thrown behind blind guy
-        if (transform.position.x < blindGuyTransform.position.x)
-        {
-            dataMetric.defeatedTime = Time.time;
-            dataMetric.howItDied = "Telekinesis";
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
-            Destroy(gameObject);
-        }
+		//metric data set to thrown behind blind guy
+		if (transform != null && blindGuyTransform != null) {
+			if (transform.position.x < blindGuyTransform.position.x) {
+				dataMetric.defeatedTime = Time.time;
+				dataMetric.howItDied = "Telekinesis";
+				DataCollector datacoll = DataCollector.getInstance();
+				datacoll.createObstacle(dataMetric);
+				Destroy(gameObject);
+			}
+		}
     }
 
     void OnBecameVisible()

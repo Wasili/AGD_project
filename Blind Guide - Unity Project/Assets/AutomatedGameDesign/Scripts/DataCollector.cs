@@ -23,7 +23,7 @@ public class DataCollector {
     {
         string data = JsonUtility.ToJson(_currGame);
 
-        StartCoroutine(Upload(data));
+        Upload(data);
     }
 
     IEnumerator Upload(string data)

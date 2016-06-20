@@ -88,16 +88,17 @@ public class Rollingstones : MonoBehaviour
     {
         GetComponent<AudioSource>().Stop();
 
-        //metric data set to thrown behind blind guy
-        if (transform.position.x < blindGuyTransform.position.x)
-        {
-            dataMetric.defeatedTime = Time.time;
-            dataMetric.howItDied = "Telekinesis";
+		//metric data set to thrown behind blind guy
+		if (transform != null && blindGuyTransform != null) {
+			if (transform.position.x < blindGuyTransform.position.x) {
+				dataMetric.defeatedTime = Time.time;
+				dataMetric.howItDied = "Telekinesis";
 
-            DataCollector datacoll = DataCollector.getInstance();
-            datacoll.createObstacle(dataMetric);
-            Destroy(gameObject);
-        }
+				DataCollector datacoll = DataCollector.getInstance();
+				datacoll.createObstacle(dataMetric);
+				Destroy(gameObject);
+			}
+		}
     }
 
     void OnBecameVisible()
